@@ -1,0 +1,8 @@
+{
+  "name": "Remix Nifas Silk-Lafto Sub-City Digital Portal",
+  "description": "Official sub-city portal \u0026 digital systems management dashboard for Nifas Silk-Lafto Sub-City, Addis Ababa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
