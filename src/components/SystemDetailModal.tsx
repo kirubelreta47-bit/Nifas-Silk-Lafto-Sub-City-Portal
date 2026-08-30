@@ -115,7 +115,7 @@ export const SystemDetailModal: React.FC<SystemDetailModalProps> = ({ system, on
       <div className="bg-white rounded-3xl border border-[#E5E0D5] shadow-2xl max-w-4xl w-full overflow-hidden flex flex-col max-h-[92vh] text-[#6B6558]">
         
         {/* Modal Top Header */}
-        <div className="bg-[#14274E] text-white p-5 sm:p-6 flex items-start justify-between relative border-b border-[#14274E]">
+        <div className="bg-gradient-to-r from-[#0348AB] via-[#0b3b8c] to-[#0a1e36] text-white p-5 sm:p-6 flex items-start justify-between relative border-b border-[#0348AB]/20">
           <div className="space-y-1.5 pr-8">
             <div className="flex flex-wrap items-center gap-2">
               <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${
@@ -164,8 +164,8 @@ export const SystemDetailModal: React.FC<SystemDetailModalProps> = ({ system, on
               onClick={() => setActiveTab('service')}
               className={`px-3.5 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === 'service'
-                  ? 'bg-[#14274E] text-white'
-                  : 'text-[#6B6558] hover:text-[#14274E] hover:bg-white'
+                  ? 'bg-[#0348AB] text-white shadow-xs'
+                  : 'text-[#6B6558] hover:text-[#0348AB] hover:bg-white'
               }`}
             >
               <Play className="w-3.5 h-3.5" />
@@ -176,8 +176,8 @@ export const SystemDetailModal: React.FC<SystemDetailModalProps> = ({ system, on
               onClick={() => setActiveTab('guide')}
               className={`px-3.5 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === 'guide'
-                  ? 'bg-[#14274E] text-white'
-                  : 'text-[#6B6558] hover:text-[#14274E] hover:bg-white'
+                  ? 'bg-[#0348AB] text-white shadow-xs'
+                  : 'text-[#6B6558] hover:text-[#0348AB] hover:bg-white'
               }`}
             >
               <HelpCircle className="w-3.5 h-3.5" />
@@ -188,8 +188,8 @@ export const SystemDetailModal: React.FC<SystemDetailModalProps> = ({ system, on
               onClick={() => setActiveTab('contact')}
               className={`px-3.5 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === 'contact'
-                  ? 'bg-[#14274E] text-white'
-                  : 'text-[#6B6558] hover:text-[#14274E] hover:bg-white'
+                  ? 'bg-[#0348AB] text-white shadow-xs'
+                  : 'text-[#6B6558] hover:text-[#0348AB] hover:bg-white'
               }`}
             >
               <Phone className="w-3.5 h-3.5" />
@@ -269,7 +269,7 @@ export const SystemDetailModal: React.FC<SystemDetailModalProps> = ({ system, on
                     <div className="sm:col-span-4 flex items-end">
                       <button
                         onClick={handleCivilSearch}
-                        className="w-full bg-[#14274E] hover:bg-[#0e1c38] text-white font-bold text-xs py-2 px-4 rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                        className="w-full bg-[#0348AB] hover:bg-[#023888] text-white font-bold text-xs py-2 px-4 rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
                       >
                         <Search className="w-3.5 h-3.5" />
                         <span>{language === 'en' ? 'Verify Resident' : 'መረጃውን አረጋግጥ'}</span>
@@ -374,7 +374,7 @@ export const SystemDetailModal: React.FC<SystemDetailModalProps> = ({ system, on
                     </div>
                   </div>
 
-                  <div className="bg-[#14274E] text-white rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="bg-gradient-to-r from-[#0348AB] to-[#0a1e36] text-white rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                       <span className="text-xs text-white/80">
                         {language === 'en' ? 'Assessed Tax & Municipal Fee:' : 'የተሰላ ጠቅላላ ክፍያ:'}
@@ -429,7 +429,7 @@ export const SystemDetailModal: React.FC<SystemDetailModalProps> = ({ system, on
                     />
                     <button
                       onClick={handleParcelSearch}
-                      className="bg-[#14274E] hover:bg-[#0e1c38] text-white font-bold text-xs px-4 py-2 rounded-xl shrink-0 cursor-pointer"
+                      className="bg-[#0348AB] hover:bg-[#023888] text-white font-bold text-xs px-4 py-2 rounded-xl shrink-0 cursor-pointer shadow-sm"
                     >
                       {language === 'en' ? 'Search Record' : 'ይፈልጉ'}
                     </button>
@@ -527,7 +527,7 @@ export const SystemDetailModal: React.FC<SystemDetailModalProps> = ({ system, on
 
                     <button
                       type="submit"
-                      className="bg-[#14274E] hover:bg-[#0e1c38] text-white font-bold text-xs py-2 px-5 rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
+                      className="bg-[#0348AB] hover:bg-[#023888] text-white font-bold text-xs py-2 px-5 rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
                     >
                       <Send className="w-3.5 h-3.5" />
                       <span>{language === 'en' ? 'Submit Ticket' : 'ቅሬታውን ላክ'}</span>
@@ -716,7 +716,7 @@ export const SystemDetailModal: React.FC<SystemDetailModalProps> = ({ system, on
 
           <button
             onClick={onClose}
-            className="bg-[#14274E] hover:bg-[#0e1c38] text-white font-bold px-5 py-2 rounded-xl transition-colors cursor-pointer"
+            className="bg-[#0348AB] hover:bg-[#023888] text-white font-bold px-5 py-2 rounded-xl transition-colors cursor-pointer shadow-sm"
           >
             {language === 'en' ? 'Close Window' : 'ዝጋ'}
           </button>

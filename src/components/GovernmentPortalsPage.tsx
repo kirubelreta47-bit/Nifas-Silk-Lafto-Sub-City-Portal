@@ -72,7 +72,7 @@ export const GovernmentPortalsPage: React.FC<GovernmentPortalsPageProps> = ({
 
   // Render Category Icon
   const renderPortalIcon = (iconName: string) => {
-    const props = { className: "w-5 h-5 text-[#14274E]" };
+    const props = { className: "w-5 h-5 text-[#0348AB]" };
     switch (iconName) {
       case 'MapPin': return <MapPin {...props} />;
       case 'Building2': return <Building2 {...props} />;
@@ -170,8 +170,8 @@ export const GovernmentPortalsPage: React.FC<GovernmentPortalsPageProps> = ({
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                     selectedCategory === cat.id
-                      ? 'bg-[#14274E] text-white shadow-xs'
-                      : 'bg-white text-[#14274E] hover:bg-[#F7F5F0] border border-[#D8D3C7]'
+                      ? 'bg-[#0348AB] text-white shadow-xs'
+                      : 'bg-white text-[#0a1e36] hover:text-[#0348AB] hover:border-[#0348AB]/40 hover:bg-blue-50/20 border border-[#D8D3C7]'
                   }`}
                 >
                   <span>{cat.label}</span>
@@ -217,7 +217,7 @@ export const GovernmentPortalsPage: React.FC<GovernmentPortalsPageProps> = ({
                 setSelectedCategory('all');
                 setSearchQuery('');
               }}
-              className="bg-[#14274E] text-white text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer"
+              className="bg-[#0348AB] hover:bg-[#023888] text-white text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer shadow-sm"
             >
               {language === 'en' ? 'Reset Filters' : 'ሁሉንም አሳይ'}
             </button>
@@ -240,12 +240,12 @@ export const GovernmentPortalsPage: React.FC<GovernmentPortalsPageProps> = ({
                   transition: { type: 'spring' as const, stiffness: 350, damping: 25 } 
                 }}
                 onClick={() => setSelectedPortalModal(portal)}
-                className="bg-[#F7F5F0] border border-[#E5E0D5] hover:border-[#14274E] hover:-translate-y-1.5 active:scale-[0.98] rounded-2xl p-5 transition-all duration-200 ease-out cursor-pointer group flex flex-col justify-between shadow-xs hover:shadow-md"
+                className="bg-[#F7F5F0] border border-[#E5E0D5] hover:border-[#0348AB]/50 hover:-translate-y-1.5 active:scale-[0.98] rounded-2xl p-5 transition-all duration-200 ease-out cursor-pointer group flex flex-col justify-between shadow-xs hover:shadow-md"
               >
                 <div>
                   {/* Header: Icon, Category & Gov Badge */}
                   <div className="flex items-start justify-between gap-2 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-white border border-[#E5E0D5] flex items-center justify-center shrink-0 group-hover:border-[#14274E] transition-colors">
+                    <div className="w-10 h-10 rounded-xl bg-white border border-[#E5E0D5] flex items-center justify-center shrink-0 group-hover:border-[#0348AB] transition-colors">
                       {renderPortalIcon(portal.iconName)}
                     </div>
                     
@@ -302,7 +302,7 @@ export const GovernmentPortalsPage: React.FC<GovernmentPortalsPageProps> = ({
                           e.stopPropagation();
                           setSelectedPortalModal(portal);
                         }}
-                        className="p-1.5 bg-white hover:bg-[#14274E] hover:text-white text-[#14274E] rounded-xl border border-[#D8D3C7] transition-all cursor-pointer"
+                        className="p-1.5 bg-white hover:bg-[#0348AB] hover:text-white hover:border-[#0348AB] text-[#0348AB] rounded-xl border border-[#D8D3C7] transition-all cursor-pointer"
                         title={language === 'en' ? 'View details' : 'ዝርዝር መረጃ'}
                       >
                         <Info className="w-3.5 h-3.5" />
@@ -313,7 +313,7 @@ export const GovernmentPortalsPage: React.FC<GovernmentPortalsPageProps> = ({
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="flex items-center gap-1 font-bold text-[#14274E] text-xs bg-white hover:bg-[#14274E] hover:text-white border border-[#D8D3C7] px-3 py-1.5 rounded-xl transition-all cursor-pointer group-hover:border-[#14274E]"
+                        className="flex items-center gap-1 font-bold text-[#0348AB] text-xs bg-white hover:bg-[#0348AB] hover:text-white border border-[#0348AB]/25 px-3 py-1.5 rounded-xl transition-all cursor-pointer group-hover:border-[#0348AB] group-hover:bg-[#0348AB] group-hover:text-white"
                       >
                         <span>{language === 'en' ? 'Launch' : 'ክፈት'}</span>
                         <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -456,7 +456,7 @@ export const GovernmentPortalsPage: React.FC<GovernmentPortalsPageProps> = ({
                     href={selectedPortalModal.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-[#14274E] hover:bg-[#0c1830] text-white text-xs font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer shadow-md"
+                    className="inline-flex items-center gap-2 bg-[#0348AB] hover:bg-[#023888] text-white text-xs font-bold py-2.5 px-5 rounded-xl transition-all cursor-pointer shadow-md hover:shadow-lg active:scale-95"
                   >
                     <span>{language === 'en' ? 'Proceed to Official Site' : 'ወደ ኦፊሴላዊ ድረ-ገጽ ቀጥል'}</span>
                     <ExternalLink className="w-3.5 h-3.5 text-white" />

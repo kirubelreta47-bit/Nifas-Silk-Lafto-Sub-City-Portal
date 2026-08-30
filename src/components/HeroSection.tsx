@@ -111,7 +111,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Search Bar Form */}
             <form 
               onSubmit={handleSearchSubmit}
-              className="bg-white p-1.5 rounded-full border border-gray-200/90 shadow-sm flex items-center max-w-xl transition-all focus-within:border-[#0b2138] focus-within:ring-2 focus-within:ring-[#0b2138]/10"
+              className="bg-white p-1.5 rounded-full border border-gray-200/90 shadow-sm flex items-center max-w-xl transition-all focus-within:border-[#0348AB] focus-within:ring-2 focus-within:ring-[#0348AB]/15"
             >
               <div className="pl-4 text-gray-400">
                 <Search className="w-5 h-5" />
@@ -126,7 +126,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               />
               <button 
                 type="submit"
-                className="bg-[#0b2138] hover:bg-[#123152] text-white text-xs font-semibold px-5 py-3 rounded-full flex items-center gap-2 transition-all shrink-0 cursor-pointer"
+                className="bg-[#0348AB] hover:bg-[#023888] text-white text-xs font-semibold px-5 py-3 rounded-full flex items-center gap-2 transition-all shrink-0 cursor-pointer shadow-sm hover:shadow-md"
               >
                 <span>{language === 'en' ? 'Search Service' : 'አገልግሎት ፈልግ'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -141,28 +141,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <button 
                 type="button"
                 onClick={() => handlePopularClick('Kebele ID')}
-                className="px-3.5 py-1 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
+                className="px-3.5 py-1 bg-white hover:bg-blue-50/50 hover:text-[#0348AB] hover:border-[#0348AB]/40 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
               >
                 {language === 'en' ? 'Kebele ID' : 'የቀበሌ መታወቂያ'}
               </button>
               <button 
                 type="button"
                 onClick={() => handlePopularClick('Tax Payment')}
-                className="px-3.5 py-1 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
+                className="px-3.5 py-1 bg-white hover:bg-blue-50/50 hover:text-[#0348AB] hover:border-[#0348AB]/40 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
               >
                 {language === 'en' ? 'Tax Payment' : 'የግብር ክፍያ'}
               </button>
               <button 
                 type="button"
                 onClick={() => handlePopularClick('Land Permits')}
-                className="px-3.5 py-1 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
+                className="px-3.5 py-1 bg-white hover:bg-blue-50/50 hover:text-[#0348AB] hover:border-[#0348AB]/40 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
               >
                 {language === 'en' ? 'Land Permits' : 'የይዞታ ፈቃድ'}
               </button>
               <button 
                 type="button"
                 onClick={() => handlePopularClick('Marriage Certificate')}
-                className="px-3.5 py-1 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
+                className="px-3.5 py-1 bg-white hover:bg-blue-50/50 hover:text-[#0348AB] hover:border-[#0348AB]/40 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
               >
                 {language === 'en' ? 'Marriage Certificate' : 'የጋብቻ ምስክር ወረቀት'}
               </button>
@@ -187,10 +187,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Illustration Image Container - Blends seamlessly into background */}
             <div className="w-full flex items-center justify-center pt-2 lg:pt-6">
               <img 
-                src="/side-image.png" 
+                src="/side%20image.png" 
                 alt="Nifas Silk-Lafto Sub-City Municipal Portal & Citizen Services" 
                 className="w-full h-auto max-h-[480px] object-contain select-none pointer-events-none drop-shadow-xs"
                 loading="eager"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.dataset.fallback) {
+                    target.dataset.fallback = 'true';
+                    target.src = '/side-image.png';
+                  }
+                }}
               />
             </div>
           </motion.div>
@@ -206,10 +213,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               if (onNavigateToSystems) onNavigateToSystems('all');
               scrollToSection('systems-directory');
             }}
-            className="bg-white p-5 rounded-2xl border border-gray-200/80 hover:border-[#0d2d4c]/40 hover:-translate-y-1.5 shadow-xs hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out cursor-pointer group flex items-center justify-between min-h-[90px]"
+            className="bg-white p-5 rounded-2xl border border-gray-200/80 hover:border-[#0348AB]/40 hover:-translate-y-1.5 shadow-xs hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out cursor-pointer group flex items-center justify-between min-h-[90px]"
           >
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-700 group-hover:bg-[#0d2d4c]/5 group-hover:scale-105 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-blue-50/60 border border-blue-100/70 flex items-center justify-center text-[#0348AB] group-hover:bg-[#0348AB] group-hover:text-white group-hover:border-[#0348AB] group-hover:scale-105 transition-all">
                 <FileText className="w-5 h-5 stroke-[1.75]" />
               </div>
               <div>
@@ -219,16 +226,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <strong className="text-2xl font-bold text-[#0a1e36]">24</strong>
               </div>
             </div>
-            <Building className="w-5 h-5 text-gray-300 group-hover:text-[#0d2d4c]/60 group-hover:scale-110 transition-all" />
+            <Building className="w-5 h-5 text-gray-300 group-hover:text-[#0348AB] group-hover:scale-110 transition-all" />
           </div>
 
           {/* Card 2: Connect & Track Applications */}
           <div 
             onClick={() => scrollToSection('government-portals-section')}
-            className="bg-white p-5 rounded-2xl border border-gray-200/80 hover:border-[#0d2d4c]/40 hover:-translate-y-1.5 shadow-xs hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out cursor-pointer group flex items-center justify-between min-h-[90px]"
+            className="bg-white p-5 rounded-2xl border border-gray-200/80 hover:border-[#0348AB]/40 hover:-translate-y-1.5 shadow-xs hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out cursor-pointer group flex items-center justify-between min-h-[90px]"
           >
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-700 group-hover:bg-[#0d2d4c]/5 group-hover:scale-105 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-blue-50/60 border border-blue-100/70 flex items-center justify-center text-[#0348AB] group-hover:bg-[#0348AB] group-hover:text-white group-hover:border-[#0348AB] group-hover:scale-105 transition-all">
                 <FileSearch className="w-5 h-5 stroke-[1.75]" />
               </div>
               <div>
@@ -240,16 +247,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 </strong>
               </div>
             </div>
-            <Globe className="w-5 h-5 text-gray-300 group-hover:text-[#0d2d4c]/60 group-hover:scale-110 transition-all" />
+            <Globe className="w-5 h-5 text-gray-300 group-hover:text-[#0348AB] group-hover:scale-110 transition-all" />
           </div>
 
           {/* Card 3: Woreda Offices */}
           <div 
             onClick={() => scrollToSection('woredas-section')}
-            className="bg-white p-5 rounded-2xl border border-gray-200/80 hover:border-[#0d2d4c]/40 hover:-translate-y-1.5 shadow-xs hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out cursor-pointer group flex items-center justify-between min-h-[90px]"
+            className="bg-white p-5 rounded-2xl border border-gray-200/80 hover:border-[#0348AB]/40 hover:-translate-y-1.5 shadow-xs hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out cursor-pointer group flex items-center justify-between min-h-[90px]"
           >
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-700 group-hover:bg-[#0d2d4c]/5 group-hover:scale-105 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-blue-50/60 border border-blue-100/70 flex items-center justify-center text-[#0348AB] group-hover:bg-[#0348AB] group-hover:text-white group-hover:border-[#0348AB] group-hover:scale-105 transition-all">
                 <Landmark className="w-5 h-5 stroke-[1.75]" />
               </div>
               <div>
@@ -259,7 +266,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <strong className="text-2xl font-bold text-[#0a1e36]">15</strong>
               </div>
             </div>
-            <MapPin className="w-5 h-5 text-gray-300 group-hover:text-[#0d2d4c]/60 group-hover:scale-110 transition-all" />
+            <MapPin className="w-5 h-5 text-gray-300 group-hover:text-[#0348AB] group-hover:scale-110 transition-all" />
           </div>
 
           {/* Card 4: Daily Citizen Transactions */}
@@ -268,10 +275,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               if (onNavigateToAnalytics) onNavigateToAnalytics();
               scrollToSection('analytics-section');
             }}
-            className="bg-white p-5 rounded-2xl border border-gray-200/80 hover:border-[#0d2d4c]/40 hover:-translate-y-1.5 shadow-xs hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out cursor-pointer group flex items-center justify-between min-h-[90px]"
+            className="bg-white p-5 rounded-2xl border border-gray-200/80 hover:border-[#0348AB]/40 hover:-translate-y-1.5 shadow-xs hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out cursor-pointer group flex items-center justify-between min-h-[90px]"
           >
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-700 group-hover:bg-[#0d2d4c]/5 group-hover:scale-105 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-blue-50/60 border border-blue-100/70 flex items-center justify-center text-[#0348AB] group-hover:bg-[#0348AB] group-hover:text-white group-hover:border-[#0348AB] group-hover:scale-105 transition-all">
                 <HandCoins className="w-5 h-5 stroke-[1.75]" />
               </div>
               <div>
@@ -281,7 +288,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <strong className="text-2xl font-bold text-[#0a1e36]">18.4k+</strong>
               </div>
             </div>
-            <Users className="w-5 h-5 text-gray-300 group-hover:text-[#0d2d4c]/60 group-hover:scale-110 transition-all" />
+            <Users className="w-5 h-5 text-gray-300 group-hover:text-[#0348AB] group-hover:scale-110 transition-all" />
           </div>
 
         </div>

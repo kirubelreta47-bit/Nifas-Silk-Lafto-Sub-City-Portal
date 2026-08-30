@@ -50,7 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           }}
           className="flex items-center gap-3 cursor-pointer group"
         >
-          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200/80 shadow-sm flex items-center justify-center text-[#0d2d4c] group-hover:shadow-md transition-shadow">
+          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200/80 shadow-sm flex items-center justify-center text-[#0348AB] group-hover:shadow-md transition-shadow">
             <Building2 className="w-5 h-5 stroke-[1.75]" />
           </div>
           <div>
@@ -78,15 +78,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => handleNavClick(link.id, link.targetId)}
                 className={`transition-colors cursor-pointer relative py-1 ${
                   isActive 
-                    ? 'text-[#0d2d4c] font-bold' 
-                    : 'hover:text-[#0d2d4c]'
+                    ? 'text-[#0348AB] font-bold' 
+                    : 'hover:text-[#0348AB]'
                 }`}
               >
                 {link.label}
                 {isActive && (
                   <motion.div 
                     layoutId="activeNavIndicator"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#0d2d4c] rounded-full"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#0348AB] rounded-full"
                   />
                 )}
               </button>
@@ -98,10 +98,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-3">
           <button 
             onClick={toggleLanguage}
-            className="px-3 py-1.5 rounded-full border border-gray-200/90 bg-white hover:bg-gray-50 text-xs font-semibold text-[#0a1e36] transition-colors shadow-2xs cursor-pointer flex items-center gap-1.5"
+            className="px-3 py-1.5 rounded-full border border-gray-200/90 bg-white hover:bg-blue-50/40 hover:border-[#0348AB]/30 text-xs font-semibold text-[#0a1e36] transition-colors shadow-2xs cursor-pointer flex items-center gap-1.5"
             title="Toggle Language / ቋንቋ ቀይር"
           >
-            <Globe className="w-3.5 h-3.5 text-[#0d2d4c]" />
+            <Globe className="w-3.5 h-3.5 text-[#0348AB]" />
             <span>{language === 'en' ? 'አማርኛ' : 'English'}</span>
           </button>
 

@@ -208,13 +208,13 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                 }}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
                   selectedStatusFilter === 'all'
-                    ? 'bg-[#14274E] text-white shadow-xs'
-                    : 'bg-white text-[#14274E] hover:bg-[#F7F5F0] border border-[#D8D3C7]'
+                    ? 'bg-[#0348AB] text-white shadow-xs'
+                    : 'bg-white text-[#0a1e36] hover:text-[#0348AB] hover:border-[#0348AB]/40 hover:bg-blue-50/20 border border-[#D8D3C7]'
                 }`}
               >
                 <span>{t('dir.filterAll')}</span>
                 <span className={`px-2 py-0.5 rounded-full text-[10px] ${
-                  selectedStatusFilter === 'all' ? 'bg-white/20 text-white' : 'bg-[#F7F5F0] text-[#14274E] border border-[#E5E0D5]'
+                  selectedStatusFilter === 'all' ? 'bg-white/20 text-white' : 'bg-[#F7F5F0] text-[#0348AB] border border-[#E5E0D5]'
                 }`}>
                   {SYSTEM_METRICS.totalSystems}
                 </span>
@@ -226,8 +226,8 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                 }}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
                   selectedStatusFilter === 'production'
-                    ? 'bg-[#14274E] text-white shadow-xs'
-                    : 'bg-white text-[#14274E] hover:bg-[#F7F5F0] border border-[#D8D3C7]'
+                    ? 'bg-[#0348AB] text-white shadow-xs'
+                    : 'bg-white text-[#0a1e36] hover:text-[#0348AB] hover:border-[#0348AB]/40 hover:bg-blue-50/20 border border-[#D8D3C7]'
                 }`}
               >
                 <CheckCircle2 className={`w-3.5 h-3.5 ${selectedStatusFilter === 'production' ? 'text-white' : 'text-[#0F6E56]'}`} />
@@ -240,8 +240,8 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                 }}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
                   selectedStatusFilter === 'development'
-                    ? 'bg-[#14274E] text-white shadow-xs'
-                    : 'bg-white text-[#14274E] hover:bg-[#F7F5F0] border border-[#D8D3C7]'
+                    ? 'bg-[#0348AB] text-white shadow-xs'
+                    : 'bg-white text-[#0a1e36] hover:text-[#0348AB] hover:border-[#0348AB]/40 hover:bg-blue-50/20 border border-[#D8D3C7]'
                 }`}
               >
                 <Clock className={`w-3.5 h-3.5 ${selectedStatusFilter === 'development' ? 'text-white' : 'text-[#B45309]'}`} />
@@ -254,8 +254,8 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                 }}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
                   selectedStatusFilter === 'testing'
-                    ? 'bg-[#14274E] text-white shadow-xs'
-                    : 'bg-white text-[#14274E] hover:bg-[#F7F5F0] border border-[#D8D3C7]'
+                    ? 'bg-[#0348AB] text-white shadow-xs'
+                    : 'bg-white text-[#0a1e36] hover:text-[#0348AB] hover:border-[#0348AB]/40 hover:bg-blue-50/20 border border-[#D8D3C7]'
                 }`}
               >
                 <Sparkles className={`w-3.5 h-3.5 ${selectedStatusFilter === 'testing' ? 'text-white' : 'text-[#B45309]'}`} />
@@ -272,7 +272,7 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={language === 'en' ? 'Filter by service name...' : 'በስም ይፈልጉ...'}
-                  className="w-full bg-white border border-[#D8D3C7] rounded-xl pl-9 pr-3 py-1.5 text-xs text-[#14274E] placeholder-[#8A8578] focus:outline-hidden focus:border-[#14274E]"
+                  className="w-full bg-white border border-[#D8D3C7] rounded-xl pl-9 pr-3 py-1.5 text-xs text-[#0a1e36] placeholder-[#8A8578] focus:outline-hidden focus:border-[#0348AB] focus:ring-1 focus:ring-[#0348AB]/20"
                 />
               </div>
 
@@ -281,7 +281,7 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full sm:w-48 bg-white border border-[#D8D3C7] rounded-xl px-3 py-1.5 text-xs font-medium text-[#14274E] focus:outline-hidden focus:border-[#14274E] cursor-pointer"
+                  className="w-full sm:w-48 bg-white border border-[#D8D3C7] rounded-xl px-3 py-1.5 text-xs font-medium text-[#0a1e36] focus:outline-hidden focus:border-[#0348AB] focus:ring-1 focus:ring-[#0348AB]/20 cursor-pointer"
                 >
                   <option value="all">{t('cat.all')}</option>
                   <option value="citizen_services">{t('cat.citizen_services')}</option>
@@ -319,7 +319,7 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                   setSearchQuery('');
                   setIsExpanded(false);
                 }}
-                className="bg-[#14274E] hover:bg-[#0e1c38] text-white font-semibold text-xs px-4 py-2 rounded-xl transition-all cursor-pointer"
+                className="bg-[#0348AB] hover:bg-[#023888] text-white font-semibold text-xs px-4 py-2 rounded-xl transition-all cursor-pointer shadow-sm"
               >
                 {language === 'en' ? 'Reset Filters & Show All' : 'ሁሉንም 24 አገልግሎቶች አሳይ'}
               </button>
@@ -347,12 +347,12 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                         transition: { type: 'spring' as const, stiffness: 350, damping: 25 } 
                       }}
                       onClick={() => onOpenSystemModal(system.id)}
-                      className="bg-[#F7F5F0] border border-[#E5E0D5] hover:border-[#14274E] hover:-translate-y-1.5 active:scale-[0.98] rounded-2xl p-5 transition-all duration-200 ease-out cursor-pointer group flex flex-col justify-between shadow-xs hover:shadow-md"
+                      className="bg-[#F7F5F0] border border-[#E5E0D5] hover:border-[#0348AB]/50 hover:-translate-y-1.5 active:scale-[0.98] rounded-2xl p-5 transition-all duration-200 ease-out cursor-pointer group flex flex-col justify-between shadow-xs hover:shadow-md"
                     >
                       <div>
                         {/* Header: Icon, Category & Status Badge */}
                         <div className="flex items-start justify-between gap-2 mb-3">
-                          <div className="w-10 h-10 rounded-xl bg-white border border-[#E5E0D5] flex items-center justify-center shrink-0 text-[#14274E] group-hover:border-[#14274E] transition-colors">
+                          <div className="w-10 h-10 rounded-xl bg-white border border-[#E5E0D5] flex items-center justify-center shrink-0 text-[#0348AB] group-hover:border-[#0348AB] group-hover:bg-[#0348AB]/5 transition-colors">
                             {renderIcon(system.iconName)}
                           </div>
 
@@ -416,7 +416,7 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                         {/* Card Footer: Woredas & Highly Visible Action Button */}
                         <div className="pt-3 border-t border-[#E5E0D5] flex items-center justify-between gap-2 text-xs">
                           <div className="text-[#8A8578] text-[11px]">
-                            <span className="font-semibold text-[#14274E]">{system.woredasServed}</span> {language === 'en' ? 'Woredas Active' : 'ወረዳዎች'}
+                            <span className="font-bold text-[#0348AB]">{system.woredasServed}</span> {language === 'en' ? 'Woredas Active' : 'ወረዳዎች'}
                           </div>
 
                           <button
@@ -425,7 +425,7 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                               e.stopPropagation();
                               onOpenSystemModal(system.id);
                             }}
-                            className="flex items-center gap-1.5 font-bold text-[#14274E] text-xs bg-white hover:bg-[#14274E] hover:text-white border border-[#D8D3C7] px-3 py-1.5 rounded-xl transition-all cursor-pointer group-hover:border-[#14274E]"
+                            className="flex items-center gap-1.5 font-bold text-[#0348AB] text-xs bg-white hover:bg-[#0348AB] hover:text-white border border-[#0348AB]/25 px-3 py-1.5 rounded-xl transition-all cursor-pointer group-hover:border-[#0348AB] group-hover:bg-[#0348AB] group-hover:text-white"
                           >
                             <span>{language === 'en' ? 'Open Desk' : 'አገልግሎቱን ክፈት'}</span>
                             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -444,8 +444,8 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                   
                   {/* Visual Overview Info Banner */}
                   <div className="w-full max-w-2xl bg-[#F7F5F0] border-2 border-[#E5E0D5] rounded-2xl p-6 text-center space-y-4 shadow-xs">
-                    <div className="flex items-center justify-center gap-2 text-[#14274E] font-bold text-sm">
-                      <LayoutGrid className="w-4 h-4 text-[#14274E]" />
+                    <div className="flex items-center justify-center gap-2 text-[#0a1e36] font-bold text-sm">
+                      <LayoutGrid className="w-4 h-4 text-[#0348AB]" />
                       <span>
                         {language === 'en' 
                           ? `Showing ${visibleSystems.length} of ${filteredSystems.length} Municipal Digital Desks` 
@@ -456,7 +456,7 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                     {/* Progress Bar of Revealed Cards */}
                     <div className="w-full bg-[#E5E0D5] h-2 rounded-full overflow-hidden max-w-md mx-auto">
                       <div 
-                        className="bg-[#14274E] h-full rounded-full transition-all duration-500"
+                        className="bg-[#0348AB] h-full rounded-full transition-all duration-500"
                         style={{ width: `${Math.round((visibleSystems.length / filteredSystems.length) * 100)}%` }}
                       />
                     </div>
@@ -476,7 +476,7 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                       <button
                         type="button"
                         onClick={handleToggleExpand}
-                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-extrabold text-sm text-white bg-[#14274E] hover:bg-[#0c1830] transition-all cursor-pointer shadow-md hover:shadow-lg active:scale-95"
+                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-extrabold text-sm text-white bg-[#0348AB] hover:bg-[#023888] transition-all cursor-pointer shadow-md hover:shadow-lg active:scale-95"
                       >
                         {shouldLimit ? (
                           <>

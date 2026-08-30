@@ -92,8 +92,8 @@ export const SystemAnalytics: React.FC = () => {
               onClick={() => setActiveTab('distribution')}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'distribution'
-                  ? 'bg-[#14274E] text-white'
-                  : 'text-[#6B6558] hover:text-[#14274E]'
+                  ? 'bg-[#0348AB] text-white shadow-xs'
+                  : 'text-[#6B6558] hover:text-[#0348AB]'
               }`}
             >
               {language === 'en' ? 'Readiness Status' : 'የዝግጁነት ሁኔታ'}
@@ -102,8 +102,8 @@ export const SystemAnalytics: React.FC = () => {
               onClick={() => setActiveTab('departments')}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'departments'
-                  ? 'bg-[#14274E] text-white'
-                  : 'text-[#6B6558] hover:text-[#14274E]'
+                  ? 'bg-[#0348AB] text-white shadow-xs'
+                  : 'text-[#6B6558] hover:text-[#0348AB]'
               }`}
             >
               {language === 'en' ? 'By Sector' : 'በዘርፍ'}
@@ -112,8 +112,8 @@ export const SystemAnalytics: React.FC = () => {
               onClick={() => setActiveTab('traffic')}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'traffic'
-                  ? 'bg-[#14274E] text-white'
-                  : 'text-[#6B6558] hover:text-[#14274E]'
+                  ? 'bg-[#0348AB] text-white shadow-xs'
+                  : 'text-[#6B6558] hover:text-[#0348AB]'
               }`}
             >
               {language === 'en' ? 'Daily Volume' : 'ዕለታዊ እንቅስቃሴ'}

@@ -81,13 +81,13 @@ export const WoredasExplorer: React.FC = () => {
                   onClick={() => setSelectedWoreda(woreda)}
                   className={`p-4 rounded-2xl border transition-all cursor-pointer shadow-xs hover:shadow-md ${
                     isSelected
-                      ? 'bg-[#F7F5F0] text-[#14274E] border-[#14274E] ring-1 ring-[#14274E]'
-                      : 'bg-white hover:bg-[#F7F5F0]/60 hover:border-[#14274E]/40 text-[#6B6558] border-[#E5E0D5]'
+                      ? 'bg-[#F7F5F0] text-[#0a1e36] border-[#0348AB] ring-2 ring-[#0348AB]/30'
+                      : 'bg-white hover:bg-blue-50/20 hover:border-[#0348AB]/40 text-[#6B6558] border-[#E5E0D5]'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1.5">
                     <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
-                      isSelected ? 'bg-[#14274E] text-white' : 'bg-[#F7F5F0] text-[#14274E]'
+                      isSelected ? 'bg-[#0348AB] text-white shadow-xs' : 'bg-blue-50/70 text-[#0348AB] border border-blue-100'
                     }`}>
                       {woreda.numberStr}
                     </span>
