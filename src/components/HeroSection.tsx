@@ -62,7 +62,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   return (
     <section className="w-full bg-[#FBF9F4] border-b border-gray-200/70 pt-6 pb-12">
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-12 flex-1 flex flex-col justify-center">
+      <div className="w-full max-w-[1600px] mx-auto px-3.5 sm:px-6 lg:px-8 xl:px-10 flex-1 flex flex-col justify-center">
         
         {/* Main Hero 2-Column Balanced Grid (50% Left / 50% Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
@@ -85,7 +85,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
 
             {/* Large 2-Line Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[46px] xl:text-[50px] font-extrabold text-[#0a1e36] tracking-tight leading-[1.14]">
+            <h1 className="text-3xl sm:text-5xl lg:text-[46px] xl:text-[50px] font-extrabold text-[#0a1e36] tracking-tight leading-[1.14]">
               {language === 'en' ? (
                 <>
                   Access Fast &amp; Reliable <br className="hidden sm:inline" />
@@ -111,10 +111,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Search Bar Form */}
             <form 
               onSubmit={handleSearchSubmit}
-              className="bg-white p-1.5 rounded-full border border-gray-200/90 shadow-sm flex items-center max-w-xl transition-all focus-within:border-[#0348AB] focus-within:ring-2 focus-within:ring-[#0348AB]/15"
+              className="bg-white p-1 sm:p-1.5 rounded-full border border-gray-200/90 shadow-sm flex items-center max-w-xl transition-all focus-within:border-[#0348AB] focus-within:ring-2 focus-within:ring-[#0348AB]/15"
             >
-              <div className="pl-4 text-gray-400">
-                <Search className="w-5 h-5" />
+              <div className="pl-3 sm:pl-4 text-gray-400 shrink-0">
+                <Search className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <input 
                 id="hero-service-search"
@@ -122,13 +122,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder={language === 'en' ? 'Search for any municipal service...' : 'የሚፈልጉትን አገልግሎት ይፈልጉ...'} 
-                className="w-full px-3 py-2 text-sm bg-transparent outline-none text-gray-700 placeholder-gray-400"
+                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm bg-transparent outline-none text-gray-700 placeholder-gray-400 min-w-0"
               />
               <button 
                 type="submit"
-                className="bg-[#0348AB] hover:bg-[#023888] text-white text-xs font-semibold px-5 py-3 rounded-full flex items-center gap-2 transition-all shrink-0 cursor-pointer shadow-sm hover:shadow-md"
+                className="bg-[#0348AB] hover:bg-[#023888] text-white text-xs font-semibold px-3.5 sm:px-5 py-2 sm:py-3 rounded-full flex items-center gap-1.5 sm:gap-2 transition-all shrink-0 cursor-pointer shadow-sm hover:shadow-md"
               >
-                <span>{language === 'en' ? 'Search Service' : 'አገልግሎት ፈልግ'}</span>
+                <span className="hidden min-[420px]:inline">{language === 'en' ? 'Search Service' : 'አገልግሎት ፈልግ'}</span>
+                <span className="min-[420px]:hidden">{language === 'en' ? 'Search' : 'ፈልግ'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </form>

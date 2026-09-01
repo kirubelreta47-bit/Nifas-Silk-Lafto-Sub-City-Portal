@@ -165,7 +165,7 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
 
   return (
     <section id="systems-directory" className="py-12 bg-white text-[#6B6558] border-t border-[#E5E0D5] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1600px] mx-auto px-3.5 sm:px-6 lg:px-8 xl:px-10 relative z-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 pb-4 border-b border-[#E5E0D5]">
@@ -331,7 +331,7 @@ export const SystemsDirectory: React.FC<SystemsDirectoryProps> = ({
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
               >
                 {visibleSystems.map((system) => {
                   const isProduction = system.status === 'production';

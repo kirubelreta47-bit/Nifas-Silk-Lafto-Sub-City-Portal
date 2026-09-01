@@ -28,7 +28,7 @@ export const AboutSubCity: React.FC = () => {
 
   return (
     <section id="about-section" className="py-12 bg-white text-[#6B6558] border-t border-[#E5E0D5] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1600px] mx-auto px-3.5 sm:px-6 lg:px-8 xl:px-10 relative z-10">
         
         {/* Section Header */}
         <div className="flex items-center gap-2 text-[#14274E] text-xs font-bold uppercase tracking-wider mb-1">

@@ -68,7 +68,7 @@ export const SystemAnalytics: React.FC = () => {
 
   return (
     <section id="analytics-section" className="py-12 bg-[#F7F5F0] text-[#6B6558] border-t border-[#E5E0D5] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1600px] mx-auto px-3.5 sm:px-6 lg:px-8 xl:px-10 relative z-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 pb-4 border-b border-[#E5E0D5]">
@@ -87,10 +87,10 @@ export const SystemAnalytics: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center bg-white p-1 rounded-xl border border-[#D8D3C7] self-start md:self-auto">
+          <div className="flex flex-wrap items-center bg-white p-1 rounded-xl border border-[#D8D3C7] self-start md:self-auto gap-1">
             <button
               onClick={() => setActiveTab('distribution')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'distribution'
                   ? 'bg-[#0348AB] text-white shadow-xs'
                   : 'text-[#6B6558] hover:text-[#0348AB]'
@@ -100,7 +100,7 @@ export const SystemAnalytics: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('departments')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'departments'
                   ? 'bg-[#0348AB] text-white shadow-xs'
                   : 'text-[#6B6558] hover:text-[#0348AB]'
@@ -110,7 +110,7 @@ export const SystemAnalytics: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('traffic')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'traffic'
                   ? 'bg-[#0348AB] text-white shadow-xs'
                   : 'text-[#6B6558] hover:text-[#0348AB]'

@@ -50,7 +50,7 @@ export const LandmarksSection: React.FC = () => {
 
   return (
     <section id="landmarks-section" className="py-12 bg-white text-[#6B6558] border-t border-[#E5E0D5] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1600px] mx-auto px-3.5 sm:px-6 lg:px-8 xl:px-10 relative z-10">
         
         {/* Header */}
         <div className="mb-8 pb-4 border-b border-[#E5E0D5]">
@@ -74,7 +74,7 @@ export const LandmarksSection: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6"
         >
           {LANDMARKS_LIST.map((landmark) => (
             <motion.div

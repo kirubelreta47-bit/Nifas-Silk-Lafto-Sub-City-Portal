@@ -52,7 +52,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF9F4] text-[#0f172a] font-sans antialiased selection:bg-[#0d2d4c]/10 selection:text-[#0d2d4c]">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#FBF9F4] text-[#0f172a] font-sans antialiased selection:bg-[#0d2d4c]/10 selection:text-[#0d2d4c]">
       
       {/* Top Navbar */}
       <Navbar
@@ -62,7 +62,7 @@ export default function App() {
       />
 
       {/* Main Single-Page Unified Cards Portal */}
-      <main>
+      <main className="w-full max-w-full overflow-x-hidden">
         {/* Informative & Attractive Hero Introduction Section */}
         <HeroSection
           onNavigateToSystems={handleNavigateToSystems}

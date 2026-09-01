@@ -12,7 +12,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
 
   return (
     <footer className="bg-[#F7F5F0] text-[#6B6558] border-t border-[#E5E0D5] pt-12 pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1600px] mx-auto px-3.5 sm:px-6 lg:px-8 xl:px-10">
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-8 border-b border-[#E5E0D5] text-xs">
           
