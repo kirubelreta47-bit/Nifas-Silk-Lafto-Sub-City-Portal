@@ -40,7 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <nav className="w-full bg-[#FBF9F4] border-b border-gray-200/60 sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 py-4 sm:py-5 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-3 sm:px-8 lg:px-12 py-2.5 sm:py-4 flex items-center justify-between gap-2">
         
         {/* Logo Brand */}
         <div 
@@ -48,28 +48,32 @@ export const Navbar: React.FC<NavbarProps> = ({
             setActiveTab('overview');
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
-          className="flex items-center gap-3 cursor-pointer group"
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group min-w-0"
         >
-          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200/80 shadow-sm flex items-center justify-center text-[#0348AB] group-hover:shadow-md transition-shadow">
-            <Building2 className="w-5 h-5 stroke-[1.75]" />
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-white border border-gray-200/80 shadow-xs flex items-center justify-center text-[#0348AB] shrink-0 group-hover:shadow-md transition-shadow">
+            <Building2 className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.75]" />
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="font-extrabold text-base tracking-tight text-[#0a1e36]">
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <h1 className="font-extrabold text-xs min-[360px]:text-sm sm:text-base tracking-tight text-[#0a1e36] whitespace-nowrap truncate leading-tight">
                 {language === 'en' ? 'Nifas Silk-Lafto' : 'ነፋስ ስልክ ላፍቶ'}
               </h1>
-              <span className="bg-[#f0ece1] text-[#4a5568] text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider">
+              {/* Short badge on mobile, full badge on larger screens */}
+              <span className="sm:hidden inline-flex items-center bg-[#f0ece1] text-[#4a5568] text-[9px] font-semibold px-1.5 py-0.5 rounded-full uppercase tracking-wider shrink-0">
+                {language === 'en' ? 'Portal' : 'ፖርታል'}
+              </span>
+              <span className="hidden sm:inline-flex items-center bg-[#f0ece1] text-[#4a5568] text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider whitespace-nowrap shrink-0">
                 {language === 'en' ? 'Sub-City Portal' : 'ክፍለ ከተማ ፖርታል'}
               </span>
             </div>
-            <p className="text-[11px] text-gray-500 font-medium">
+            <p className="text-[10px] sm:text-[11px] text-gray-500 font-medium whitespace-nowrap truncate leading-tight mt-0.5">
               {language === 'en' ? 'Addis Ababa City Administration' : 'አዲስ አበባ ከተማ አስተዳደር'}
             </p>
           </div>
         </div>
 
         {/* Center Navigation Links (Desktop) */}
-        <div className="hidden lg:flex items-center gap-8 text-sm font-semibold text-gray-700">
+        <div className="hidden lg:flex items-center gap-8 text-sm font-semibold text-gray-700 shrink-0">
           {navLinks.map((link) => {
             const isActive = activeTab === link.id;
             return (
@@ -95,23 +99,24 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Right Action: Language Switch & Mobile Toggle */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <button 
             onClick={toggleLanguage}
-            className="px-3 py-1.5 rounded-full border border-gray-200/90 bg-white hover:bg-blue-50/40 hover:border-[#0348AB]/30 text-xs font-semibold text-[#0a1e36] transition-colors shadow-2xs cursor-pointer flex items-center gap-1.5"
+            className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-gray-200/90 bg-white hover:bg-blue-50/40 hover:border-[#0348AB]/30 text-xs font-semibold text-[#0a1e36] transition-colors shadow-2xs cursor-pointer flex items-center gap-1 sm:gap-1.5"
             title="Toggle Language / ቋንቋ ቀይር"
           >
-            <Globe className="w-3.5 h-3.5 text-[#0348AB]" />
-            <span>{language === 'en' ? 'አማርኛ' : 'English'}</span>
+            <Globe className="w-3.5 h-3.5 text-[#0348AB] shrink-0" />
+            <span className="hidden sm:inline">{language === 'en' ? 'አማርኛ' : 'English'}</span>
+            <span className="sm:hidden">{language === 'en' ? 'አማ' : 'EN'}</span>
           </button>
 
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+            className="lg:hidden p-1.5 sm:p-2 rounded-lg bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-4 h-4 sm:w-5 sm:h-5" /> : <Menu className="w-4 h-4 sm:w-5 sm:h-5" />}
           </button>
         </div>
 
