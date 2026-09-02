@@ -27,7 +27,7 @@ export const WOREDAS_LIST: WoredaInfo[] = [
     neighborhoods: ['ለቡ','መብራት ኃይል'],
     population: 31200,
     systemsActive: 24,
-    officeLocation: 'Saris Main Road, near Rail Station',
+    officeLocation: 'kene cake beti',
     status: 'Full Digital Network',
     chiefOfficer: 'Ato Abebe Worku',
   },
