@@ -78,7 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 sm:gap-2">
               <h1 className="font-extrabold text-xs min-[360px]:text-sm sm:text-base tracking-tight text-[#0a1e36] whitespace-nowrap truncate leading-tight">
-                {language === 'en' ? 'Nifas Silk-Lafto' : 'ነፋስ ስልክ ላፍቶ'}
+                {language === 'en' ? 'Nifas Silk-Lafto' : 'ንፋስ  ስልክ ላፍቶ'}
               </h1>
               {/* Short badge on mobile, full badge on larger screens */}
               <span className="sm:hidden inline-flex items-center bg-[#f0ece1] text-[#4a5568] text-[9px] font-semibold px-1.5 py-0.5 rounded-full uppercase tracking-wider shrink-0">
@@ -176,7 +176,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </div>
                     <div className="min-w-0">
                       <span className="font-extrabold text-sm text-[#0a1e36] block truncate">
-                        {language === 'en' ? 'Nifas Silk-Lafto' : 'ነፋስ ስልክ ላፍቶ'}
+                        {language === 'en' ? 'Nifas Silk-Lafto' : 'ንፋስ  ስልክ ላፍቶ'}
                       </span>
                       <span className="text-[10px] text-gray-500 font-medium block truncate">
                         {language === 'en' ? 'Sub-City Digital Portal' : 'የክፍለ ከተማ ዲጂታል ፖርታል'}

@@ -64,7 +64,7 @@ export const LandmarksSection: React.FC = () => {
           <p className="text-sm text-[#6B6558] mt-1">
             {language === 'en' 
               ? 'Key commercial, diplomatic, eco-park, and civic facilities across Nifas Silk-Lafto sub-city.' 
-              : 'በነፋስ ስልክ ላፍቶ ክፍለ ከተማ የሚገኙ ዋና ዋና የንግድ፣ የዲፕሎማሲ፣ የመናፈሻ እና የማህበራዊ አገልግሎት ተቋማት::'}
+              : 'በንፋስ  ስልክ ላፍቶ ክፍለ ከተማ የሚገኙ ዋና ዋና የንግድ፣ የዲፕሎማሲ፣ የመናፈሻ እና የማህበራዊ አገልግሎት ተቋማት::'}
           </p>
         </div>
 

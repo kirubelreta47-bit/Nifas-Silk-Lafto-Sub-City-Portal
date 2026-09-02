@@ -43,7 +43,7 @@ export const GOV_PORTALS: GovPortal[] = [
     categoryLabel: 'Land, Property & Cadastre',
     amharicCategoryLabel: 'የመሬት ይዞታ እና ካዳስተር',
     description: 'Official digital land registry and cadastre administration platform. Verify title deeds, view cadastral plot coordinates, track land lease agreements, verify ownership status, and request legal property boundary certificates across all 15 Woredas of Nifas Silk-Lafto.',
-    amharicDescription: 'ኦፊሴላዊ የመሬት ይዞታ ምዝገባ እና የካዳስተር አገልግሎት መድረክ:: የመሬት ካርታ ትክክለኛነት ማረጋገጥ፣ የይዞታ ወሰን መረጃ፣ የሊዝ ውል ክትትል እና የባለቤትነት ማስተላለፍ አገልግሎት በሁሉም 15 የነፋስ ስልክ ላፍቶ ወረዳዎች::',
+    amharicDescription: 'ኦፊሴላዊ የመሬት ይዞታ ምዝገባ እና የካዳስተር አገልግሎት መድረክ:: የመሬት ካርታ ትክክለኛነት ማረጋገጥ፣ የይዞታ ወሰን መረጃ፣ የሊዝ ውል ክትትል እና የባለቤትነት ማስተላለፍ አገልግሎት በሁሉም 15 የንፋስ  ስልክ ላፍቶ ወረዳዎች::',
     iconName: 'MapPin',
     status: 'online',
     uptime: '99.8%',

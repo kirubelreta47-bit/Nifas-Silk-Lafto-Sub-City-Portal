@@ -136,7 +136,7 @@ export const GovernmentPortalsPage: React.FC<GovernmentPortalsPageProps> = ({
               <p className="text-sm text-[#6B6558] mt-2 max-w-3xl leading-relaxed">
                 {language === 'en'
                   ? 'Direct gateways to authorized municipal and federal digital platforms serving Nifas Silk-Lafto citizens, business owners, and property holders. Click any portal to access real-time applications and verified registries.'
-                  : 'ለነፋስ ስልክ ላፍቶ ነዋሪዎች፣ ነጋዴዎችና ባለይዞታዎች የቀረቡ ኦፊሴላዊ የከተማ አስተዳደርና የፌዴራል ዲጂታል ፖርታሎች:: ቀጥታ ለመጠቀም ካርዶቹን ይጫኑ::'}
+                  : 'ለንፋስ  ስልክ ላፍቶ ነዋሪዎች፣ ነጋዴዎችና ባለይዞታዎች የቀረቡ ኦፊሴላዊ የከተማ አስተዳደርና የፌዴራል ዲጂታል ፖርታሎች:: ቀጥታ ለመጠቀም ካርዶቹን ይጫኑ::'}
               </p>
             </div>
 
