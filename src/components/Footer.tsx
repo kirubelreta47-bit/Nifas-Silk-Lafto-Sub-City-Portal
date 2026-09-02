@@ -24,10 +24,10 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
               </div>
               <div>
                 <span className="font-extrabold text-base text-[#14274E] block">
-                  {language === 'en' ? 'Nifas Silk-Lafto Sub-City' : 'ነፋስ ስልክ ላፍቶ ክፍለ ከተማ'}
+                  {language === 'en' ? 'Nifas Silk-Lafto Sub-City' : 'ንፋስ  ስልክ ላፍቶ ክፍለ ከተማ'}
                 </span>
                 <span className="text-[11px] font-semibold text-[#8A8578]">
-                  {language === 'en' ? 'ነፋስ ስልክ ላፍቶ ክፍለ ከተማ' : 'Nifas Silk-Lafto Sub-City'}
+                  {language === 'en' ? 'ንፋስ  ስልክ ላፍቶ ክፍለ ከተማ' : 'Nifas Silk-Lafto Sub-City'}
                 </span>
               </div>
             </div>

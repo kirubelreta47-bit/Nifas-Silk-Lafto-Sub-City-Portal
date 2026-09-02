@@ -80,7 +80,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span>
                 {language === 'en' 
                   ? 'Nifas Silk-Lafto Sub-City Administration • Addis Ababa' 
-                  : 'የነፋስ ስልክ ላፍቶ ክፍለ ከተማ አስተዳደር • አዲስ አበባ'}
+                  : 'የንፋስ  ስልክ ላፍቶ ክፍለ ከተማ አስተዳደር • አዲስ አበባ'}
               </span>
             </div>
 
@@ -104,7 +104,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {language === 'en' ? (
                 'Welcome to the official public portal for Nifas Silk-Lafto Sub-City. Access 24 municipal services, find your local Woreda office, pay property taxes, or verify vital event records online.'
               ) : (
-                'ወደ ነፋስ ስልክ ላፍቶ ክፍለ ከተማ ኦፊሴላዊ የህዝብ ፖርታል እንኳን በደህና መጡ:: 24ቱን የማዘጋጃ ቤት አገልግሎቶች ያግኙ፣ የወረዳ ቢሮዎችን ያግኙ፣ የንብረት ግብር ይክፈሉ ወይም የነዋሪነትና ወሳኝ ኩነቶችን በመስመር ላይ ያረጋግጡ::'
+                'ወደ ንፋስ  ስልክ ላፍቶ ክፍለ ከተማ ኦፊሴላዊ የህዝብ ፖርታል እንኳን በደህና መጡ:: 24ቱን የማዘጋጃ ቤት አገልግሎቶች ያግኙ፣ የወረዳ ቢሮዎችን ያግኙ፣ የንብረት ግብር ይክፈሉ ወይም የነዋሪነትና ወሳኝ ኩነቶችን በመስመር ላይ ያረጋግጡ::'
               )}
             </p>
 

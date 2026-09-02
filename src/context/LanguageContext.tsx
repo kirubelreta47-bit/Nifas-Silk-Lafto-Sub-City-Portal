@@ -115,9 +115,9 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.hours': 'ከሰኞ - አርብ፡ 2፡30 - 11፡30',
 
     // Hero
-    'hero.badge': 'የነፋስ ስልክ ላፍቶ ክፍለ ከተማ አስተዳደር • አዲስ አበባ',
+    'hero.badge': 'የንፋስ  ስልክ ላፍቶ ክፍለ ከተማ አስተዳደር • አዲስ አበባ',
     'hero.title': 'የዜጎች e-አገልግሎቶችና የማዘጋጃ ቤት ፖርታል',
-    'hero.subtitle': 'ወደ ነፋስ ስልክ ላፍቶ ክፍለ ከተማ ኦፊሴላዊ የህዝብ ፖርታል እንኳን በደህና መጡ:: 24ቱን የማዘጋጃ ቤት አገልግሎቶች ያግኙ፣ የቀበሌ መታወቂያና የልደት ምስክር ወረቀት ያረጋግጡ ወይም የንብረት ግብርዎን በመስመር ላይ ይክፈሉ::',
+    'hero.subtitle': 'ወደ ንፋስ  ስልክ ላፍቶ ክፍለ ከተማ ኦፊሴላዊ የህዝብ ፖርታል እንኳን በደህና መጡ:: 24ቱን የማዘጋጃ ቤት አገልግሎቶች ያግኙ፣ የቀበሌ መታወቂያና የልደት ምስክር ወረቀት ያረጋግጡ ወይም የንብረት ግብርዎን በመስመር ላይ ይክፈሉ::',
     'hero.searchPlaceholder': 'የሚፈልጉትን አገልግሎት ይፈልጉ (ለምሳሌ፡ የቀበሌ መታወቂያ፣ የልደት ካርድ፣ የይዞታ ካርታ፣ የግብር ክፍያ፣ የንግድ ፈቃድ)...',
     'hero.exploreBtn': 'ሁሉንም የዜጎች አገልግሎቶች ይመልከቱ',
     'hero.analyticsBtn': 'የህዝብ ስታቲስቲክስ ይመልከቱ',
@@ -173,7 +173,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Landmarks
     'landmarks.title': 'ዋና ዋና የልማትና ንግድ ማዕከላት',
-    'landmarks.subtitle': 'በነፋስ ስልክ ላፍቶ ክፍለ ከተማ የሚገኙ ዋና ዋና የንግድ፣ የዲፕሎማሲ፣ የኢኮ-ፓርክና የህዝብ ማዕከላት::',
+    'landmarks.subtitle': 'በንፋስ  ስልክ ላፍቶ ክፍለ ከተማ የሚገኙ ዋና ዋና የንግድ፣ የዲፕሎማሲ፣ የኢኮ-ፓርክና የህዝብ ማዕከላት::',
 
     // Analytics
     'analytics.title': 'የህዝብ አገልግሎቶችና የማህበረሰብ ስታቲስቲክስ',
@@ -187,9 +187,9 @@ const translations: Record<Language, Record<string, string>> = {
     'modal.close': 'ዝጋ',
 
     // Footer
-    'footer.description': 'የነፋስ ስልክ ላፍቶ ክፍለ ከተማ አስተዳደር ኦፊሴላዊ የህዝብ አገልግሎትና ማዘጋጃ ቤታዊ ፖርታል::',
+    'footer.description': 'የንፋስ  ስልክ ላፍቶ ክፍለ ከተማ አስተዳደር ኦፊሴላዊ የህዝብ አገልግሎትና ማዘጋጃ ቤታዊ ፖርታል::',
     'footer.quickLinks': 'ፈጣን ማውጫ',
-    'footer.copyright': '© 2026 የነፋስ ስልክ ላፍቶ ክፍለ ከተማ አስተዳደር • አዲስ አበባ፣ ኢትዮጵያ::',
+    'footer.copyright': '© 2026 የንፋስ  ስልክ ላፍቶ ክፍለ ከተማ አስተዳደር • አዲስ አበባ፣ ኢትዮጵያ::',
     'footer.fiberActive': 'የማዘጋጃ ቤት አገልግሎት ክፍት ነው',
   }
 };

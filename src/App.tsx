@@ -82,8 +82,7 @@ export default function App() {
             onOpenSystemModal={(id) => setSelectedSystemModalId(id)}
           />
 
-          <SystemAnalytics />
-
+ 
           <AboutSubCity />
 
           <WoredasExplorer />
