@@ -7,7 +7,6 @@ import {
   CheckCircle2, 
   AlertCircle, 
   ArrowLeft, 
-  RotateCcw, 
   Sparkles, 
   Clock, 
   Eye, 
@@ -30,7 +29,7 @@ interface AdminAuctionsDashboardProps {
 }
 
 export const AdminAuctionsDashboard: React.FC<AdminAuctionsDashboardProps> = ({ onNavigate, onLogout }) => {
-  const { auctions, categories, addAuction, deleteAuction, resetToDefaults } = useAuctions();
+  const { auctions, categories, addAuction, deleteAuction } = useAuctions();
   const { language } = useLanguage();
 
   // Form State
@@ -212,15 +211,6 @@ export const AdminAuctionsDashboard: React.FC<AdminAuctionsDashboardProps> = ({ 
             >
               <Eye className="w-4 h-4 text-[#0348AB]" />
               <span>{language === 'en' ? 'Public Catalog' : 'የህዝብ ካታሎግ'}</span>
-            </button>
-            
-            <button
-              onClick={resetToDefaults}
-              title="Restore initial demo listings"
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-gray-600 bg-white border border-[#D8D3C7] hover:text-gray-900 hover:bg-gray-50 shadow-2xs transition-colors cursor-pointer"
-            >
-              <RotateCcw className="w-3.5 h-3.5 text-gray-500" />
-              <span className="hidden sm:inline">{language === 'en' ? 'Reset Demo' : 'መረጃ መልስ'}</span>
             </button>
 
             {/* Sign Out Button */}
@@ -535,16 +525,9 @@ export const AdminAuctionsDashboard: React.FC<AdminAuctionsDashboardProps> = ({ 
                   </div>
                   <p className="text-xs text-gray-500 max-w-sm mx-auto">
                     {language === 'en' 
-                      ? 'You can create a new auction using the form on the left, or restore demo auctions.' 
-                      : 'በግራ በኩል ባለው ቅጽ አዲስ ጨረታ ይጨምሩ ወይም የሙከራ መረጃዎችን ይመልሱ::'}
+                      ? 'You can create a new auction listing using the registration form on the left.' 
+                      : 'በግራ በኩል ባለው ቅጽ አዲስ ጨረታ መመዝገብ ይችላሉ::'}
                   </p>
-                  <button
-                    onClick={resetToDefaults}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-[#0348AB] bg-blue-50 border border-blue-200 hover:bg-blue-100 transition-colors cursor-pointer"
-                  >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                    <span>{language === 'en' ? 'Restore Demo Auctions' : 'የሙከራ ጨረታዎችን መልስ'}</span>
-                  </button>
                 </div>
               ) : (
                 <div className="p-4 sm:p-6 bg-[#FBF9F4]/40 grid grid-cols-1 md:grid-cols-2 gap-4">
