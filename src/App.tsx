@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
@@ -10,18 +10,77 @@ import { AboutSubCity } from './components/AboutSubCity';
 import { WoredasExplorer } from './components/WoredasExplorer';
 import { LandmarksSection } from './components/LandmarksSection';
 import { Footer } from './components/Footer';
+import { LiveAuctionsPage } from './components/LiveAuctionsPage';
+import { AdminAuctionsDashboard } from './components/AdminAuctionsDashboard';
+import { AdminLogin } from './components/AdminLogin';
 import { SUB_CITY_SYSTEMS } from './data/systemsData';
+import { AuctionsProvider } from './context/AuctionsContext';
+import { isAuthenticatedAdmin, clearAdminSession } from './utils/security';
 
 export default function App() {
+  // Normalize path from window.location.pathname
+  const getInitialPath = () => {
+    if (typeof window === 'undefined') return '/';
+    const p = window.location.pathname;
+    if (p.startsWith('/admin')) return '/admin';
+    if (p.startsWith('/auctions')) return '/auctions';
+    return '/';
+  };
+
+  const [currentPath, setCurrentPath] = useState<string>(getInitialPath);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => isAuthenticatedAdmin());
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<'all' | 'production' | 'development' | 'testing'>('all');
   const [selectedSystemModalId, setSelectedSystemModalId] = useState<string | null>(null);
+
+  // Synchronize on browser forward/backward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const p = window.location.pathname;
+      if (p.startsWith('/admin')) {
+        setCurrentPath('/admin');
+        setIsAdminAuthenticated(isAuthenticatedAdmin());
+      } else if (p.startsWith('/auctions')) {
+        setCurrentPath('/auctions');
+      } else {
+        setCurrentPath('/');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigate = (path: string) => {
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
+    }
+    setCurrentPath(path);
+    if (path.startsWith('/admin')) {
+      setIsAdminAuthenticated(isAuthenticatedAdmin());
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleAdminLoginSuccess = () => {
+    setIsAdminAuthenticated(true);
+    navigate('/admin');
+  };
+
+  const handleAdminLogout = () => {
+    clearAdminSession();
+    setIsAdminAuthenticated(false);
+    navigate('/');
+  };
 
   // Find the selected system object for modal display
   const activeSystem = SUB_CITY_SYSTEMS.find((s) => s.id === selectedSystemModalId) || null;
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
+    if (currentPath !== '/') {
+      navigate('/');
+    }
     if (tab === 'overview') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -51,55 +110,87 @@ export default function App() {
     handleTabChange('analytics');
   };
 
-  return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#FBF9F4] text-[#0f172a] font-sans antialiased selection:bg-[#0d2d4c]/10 selection:text-[#0d2d4c]">
-      
-      {/* Top Navbar */}
-      <Navbar
-        activeTab={activeTab}
-        setActiveTab={handleTabChange}
-        onOpenSystemModal={(id) => setSelectedSystemModalId(id)}
-      />
+  const isAdminRoute = currentPath.startsWith('/admin');
 
-      {/* Main Single-Page Unified Cards Portal */}
-      <main className="w-full max-w-full overflow-x-hidden">
-        {/* Informative & Attractive Hero Introduction Section */}
-        <HeroSection
-          onNavigateToSystems={handleNavigateToSystems}
-          onNavigateToAnalytics={handleNavigateToAnalytics}
+  return (
+    <AuctionsProvider>
+      <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#FBF9F4] text-[#0f172a] font-sans antialiased selection:bg-[#0d2d4c]/10 selection:text-[#0d2d4c]">
+        
+        {/* Top Navbar */}
+        <Navbar
+          activeTab={activeTab}
+          setActiveTab={handleTabChange}
+          onOpenSystemModal={(id) => setSelectedSystemModalId(id)}
+          currentPath={currentPath}
+          onNavigate={navigate}
         />
 
-        {/* Collected Cards Single-Page Directory */}
-        <div className="space-y-0">
-          {/* Official Federal & Municipal Government Gateways (6 Portals) */}
-          <GovernmentPortalsPage 
-            onBackToOverview={() => handleTabChange('overview')}
-          />
+        {/* View Switcher based on currentPath */}
+        {isAdminRoute ? (
+          <main className="w-full max-w-full overflow-x-hidden">
+            {!isAdminAuthenticated ? (
+              <AdminLogin 
+                onLoginSuccess={handleAdminLoginSuccess}
+                onNavigate={navigate}
+              />
+            ) : (
+              <AdminAuctionsDashboard 
+                onNavigate={navigate}
+                onLogout={handleAdminLogout}
+              />
+            )}
+          </main>
+        ) : currentPath === '/auctions' ? (
+          <main className="w-full max-w-full overflow-x-hidden">
+            <LiveAuctionsPage onNavigate={navigate} />
+          </main>
+        ) : (
+          /* Main Single-Page Unified Cards Portal */
+          <main className="w-full max-w-full overflow-x-hidden">
+            {/* Informative & Attractive Hero Introduction Section */}
+            <HeroSection
+              onNavigateToSystems={handleNavigateToSystems}
+              onNavigateToAnalytics={handleNavigateToAnalytics}
+            />
 
-          <SystemsDirectory
-            selectedStatusFilter={selectedStatusFilter}
-            setSelectedStatusFilter={setSelectedStatusFilter}
-            onOpenSystemModal={(id) => setSelectedSystemModalId(id)}
-          />
+            {/* Collected Cards Single-Page Directory */}
+            <div className="space-y-0">
+              {/* Official Federal & Municipal Government Gateways (6 Portals) */}
+              <GovernmentPortalsPage 
+                onBackToOverview={() => handleTabChange('overview')}
+              />
 
- 
-          <AboutSubCity />
+              <SystemsDirectory
+                selectedStatusFilter={selectedStatusFilter}
+                setSelectedStatusFilter={setSelectedStatusFilter}
+                onOpenSystemModal={(id) => setSelectedSystemModalId(id)}
+              />
 
-          <WoredasExplorer />
+              <SystemAnalytics />
 
-          <LandmarksSection />
-        </div>
-      </main>
+              <AboutSubCity />
 
-      {/* Interactive System Workspace Modal */}
-      <SystemDetailModal
-        system={activeSystem}
-        onClose={() => setSelectedSystemModalId(null)}
-      />
+              <WoredasExplorer />
 
-      {/* Global Footer */}
-      <Footer setActiveTab={setActiveTab} />
+              <LandmarksSection />
+            </div>
+          </main>
+        )}
 
-    </div>
+        {/* Interactive System Workspace Modal */}
+        <SystemDetailModal
+          system={activeSystem}
+          onClose={() => setSelectedSystemModalId(null)}
+        />
+
+        {/* Global Footer */}
+        <Footer 
+          setActiveTab={handleTabChange} 
+          onNavigate={navigate}
+        />
+
+      </div>
+    </AuctionsProvider>
   );
 }
+

@@ -10,8 +10,10 @@ import {
   Compass,
   MapPin,
   BarChart3,
-  PhoneCall
+  PhoneCall,
+  Gavel
 } from 'lucide-react';
+
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -19,11 +21,15 @@ interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onOpenSystemModal?: (systemId: string) => void;
+  currentPath: string;
+  onNavigate: (path: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
+  currentPath,
+  onNavigate,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { language, toggleLanguage } = useLanguage();
@@ -45,17 +51,33 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'portals', label: language === 'en' ? 'Sub-City Hub' : 'የክፍለ ከተማ ማዕከል', targetId: 'government-portals-section', icon: Compass },
     { id: 'woredas', label: language === 'en' ? 'Woredas Directory' : 'የወረዳዎች ማውጫ', targetId: 'woredas-section', icon: MapPin },
     { id: 'analytics', label: language === 'en' ? 'Data & Stats' : 'መረጃና ስታቲስቲክስ', targetId: 'analytics-section', icon: BarChart3 },
+    { id: 'auctions', label: language === 'en' ? 'Live Auctions' : 'ቀጥታ ጨረታዎች', path: '/auctions', icon: Gavel },
   ];
 
-  const handleNavClick = (id: string, targetId: string) => {
-    setActiveTab(id);
+  const handleNavClick = (link: { id: string; path?: string; targetId?: string }) => {
     setMobileMenuOpen(false);
-    if (targetId === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (link.path) {
+      onNavigate(link.path);
+      return;
+    }
+
+    setActiveTab(link.id);
+    if (currentPath !== '/') {
+      onNavigate('/');
+      setTimeout(() => {
+        if (link.targetId === 'top') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (link.targetId) {
+          const el = document.getElementById(link.targetId);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 80);
     } else {
-      const el = document.getElementById(targetId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+      if (link.targetId === 'top') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (link.targetId) {
+        const el = document.getElementById(link.targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
       }
     }
   };
@@ -67,8 +89,12 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Logo Brand */}
         <div 
           onClick={() => {
-            setActiveTab('overview');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (currentPath !== '/') {
+              onNavigate('/');
+            } else {
+              setActiveTab('overview');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
           }}
           className="flex items-center gap-2 sm:gap-3 cursor-pointer group min-w-0"
         >
@@ -95,20 +121,23 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Center Navigation Links (Desktop) */}
-        <div className="hidden lg:flex items-center gap-8 text-sm font-semibold text-gray-700 shrink-0">
+        <div className="hidden lg:flex items-center gap-7 text-sm font-semibold text-gray-700 shrink-0">
           {navLinks.filter(link => link.id !== 'overview').map((link) => {
-            const isActive = activeTab === link.id;
+            const isActive = link.path 
+              ? currentPath === link.path 
+              : (currentPath === '/' && activeTab === link.id);
+
             return (
               <button
                 key={link.id}
-                onClick={() => handleNavClick(link.id, link.targetId)}
-                className={`transition-colors cursor-pointer relative py-1 ${
+                onClick={() => handleNavClick(link)}
+                className={`transition-colors cursor-pointer relative py-1 flex items-center gap-1.5 ${
                   isActive 
                     ? 'text-[#0348AB] font-bold' 
                     : 'hover:text-[#0348AB]'
                 }`}
               >
-                {link.label}
+                <span>{link.label}</span>
                 {isActive && (
                   <motion.div 
                     layoutId="activeNavIndicator"
@@ -131,6 +160,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="hidden sm:inline">{language === 'en' ? 'አማርኛ' : 'English'}</span>
             <span className="sm:hidden">{language === 'en' ? 'አማ' : 'EN'}</span>
           </button>
+
+
 
           {/* Mobile Menu Toggle Button */}
           <button
@@ -200,13 +231,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </span>
 
                   {navLinks.map((link) => {
-                    const isActive = activeTab === link.id;
+                    const isActive = link.path 
+                      ? currentPath === link.path 
+                      : (currentPath === '/' && activeTab === link.id);
                     const IconComponent = link.icon;
 
                     return (
                       <button
                         key={link.id}
-                        onClick={() => handleNavClick(link.id, link.targetId)}
+                        onClick={() => handleNavClick(link)}
                         className={`w-full text-left py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-between cursor-pointer group ${
                           isActive
                             ? 'bg-[#0348AB] text-white shadow-xs'
@@ -223,6 +256,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   })}
                 </div>
               </div>
+
+
 
               {/* Drawer Bottom Footer: Language Toggle & Citizen Support */}
               <div className="p-4 border-t border-gray-200/80 bg-white space-y-3">

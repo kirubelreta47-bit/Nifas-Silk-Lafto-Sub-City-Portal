@@ -5,9 +5,10 @@ import { useLanguage } from '../context/LanguageContext';
 
 interface FooterProps {
   setActiveTab: (tab: string) => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
+export const Footer: React.FC<FooterProps> = ({ setActiveTab, onNavigate }) => {
   const { language, t } = useLanguage();
 
   return (
@@ -76,8 +77,18 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   {t('nav.landmarks')}
                 </button>
               </li>
+              <li>
+                <button 
+                  onClick={() => onNavigate ? onNavigate('/auctions') : setActiveTab('auctions')} 
+                  className="hover:text-[#14274E] transition-colors cursor-pointer font-semibold text-[#0348AB]"
+                >
+                  {t('nav.auctions')}
+                </button>
+              </li>
             </ul>
           </div>
+
+
 
           {/* Systems Breakdown */}
           <div className="md:col-span-4 space-y-2">
