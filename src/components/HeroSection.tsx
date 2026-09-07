@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { 
-  Users, 
+import {
+  Users,
   ArrowRight,
-  MapPin, 
-  Search, 
-  FileText, 
+  MapPin,
+  Search,
+  FileText,
   FileSearch,
   Landmark,
   HandCoins,
@@ -63,12 +63,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section className="w-full bg-[#FBF9F4] border-b border-gray-200/70 pt-6 pb-12">
       <div className="w-full max-w-[1600px] mx-auto px-3.5 sm:px-6 lg:px-8 xl:px-10 flex-1 flex flex-col justify-center">
-        
+
         {/* Main Hero 2-Column Balanced Grid (50% Left / 50% Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          
+
           {/* Left Column: Heading, Info, Search, Popular Tags */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -78,8 +78,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-gray-200/80 text-xs font-medium text-gray-600 shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
               <span>
-                {language === 'en' 
-                  ? 'Nifas Silk-Lafto Sub-City Administration • Addis Ababa' 
+                {language === 'en'
+                  ? 'Nifas Silk-Lafto Sub-City Administration • Addis Ababa'
                   : 'የንፋስ  ስልክ ላፍቶ ክፍለ ከተማ አስተዳደር • አዲስ አበባ'}
               </span>
             </div>
@@ -109,22 +109,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </p>
 
             {/* Search Bar Form */}
-            <form 
+            <form
               onSubmit={handleSearchSubmit}
               className="bg-white p-1 sm:p-1.5 rounded-full border border-gray-200/90 shadow-sm flex items-center max-w-xl transition-all focus-within:border-[#0348AB] focus-within:ring-2 focus-within:ring-[#0348AB]/15"
             >
               <div className="pl-3 sm:pl-4 text-gray-400 shrink-0">
                 <Search className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <input 
+              <input
                 id="hero-service-search"
-                type="text" 
+                type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder={language === 'en' ? 'Search for any municipal service...' : 'የሚፈልጉትን አገልግሎት ይፈልጉ...'} 
+                placeholder={language === 'en' ? 'Search for any municipal service...' : 'የሚፈልጉትን አገልግሎት ይፈልጉ...'}
                 className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm bg-transparent outline-none text-gray-700 placeholder-gray-400 min-w-0"
               />
-              <button 
+              <button
                 type="submit"
                 className="bg-[#0348AB] hover:bg-[#023888] text-white text-xs font-semibold px-3.5 sm:px-5 py-2 sm:py-3 rounded-full flex items-center gap-1.5 sm:gap-2 transition-all shrink-0 cursor-pointer shadow-sm hover:shadow-md"
               >
@@ -139,28 +139,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span className="text-gray-500 font-medium mr-0.5">
                 {language === 'en' ? 'Popular:' : 'ተወዳጅ:'}
               </span>
-              <button 
+              <button
                 type="button"
                 onClick={() => handlePopularClick('Kebele ID')}
                 className="px-3.5 py-1 bg-white hover:bg-blue-50/50 hover:text-[#0348AB] hover:border-[#0348AB]/40 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
               >
                 {language === 'en' ? 'Kebele ID' : 'የቀበሌ መታወቂያ'}
               </button>
-              <button 
+              <button
                 type="button"
                 onClick={() => handlePopularClick('Tax Payment')}
                 className="px-3.5 py-1 bg-white hover:bg-blue-50/50 hover:text-[#0348AB] hover:border-[#0348AB]/40 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
               >
                 {language === 'en' ? 'Tax Payment' : 'የግብር ክፍያ'}
               </button>
-              <button 
+              <button
                 type="button"
                 onClick={() => handlePopularClick('Land Permits')}
                 className="px-3.5 py-1 bg-white hover:bg-blue-50/50 hover:text-[#0348AB] hover:border-[#0348AB]/40 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
               >
                 {language === 'en' ? 'Land Permits' : 'የይዞታ ፈቃድ'}
               </button>
-              <button 
+              <button
                 type="button"
                 onClick={() => handlePopularClick('Marriage Certificate')}
                 className="px-3.5 py-1 bg-white hover:bg-blue-50/50 hover:text-[#0348AB] hover:border-[#0348AB]/40 border border-gray-200 rounded-full text-gray-700 font-medium transition-all shadow-xs cursor-pointer"
@@ -171,7 +171,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </motion.div>
 
           {/* Right Column: Hero Illustration & Info Cards */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -187,9 +187,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Illustration Image Container - Blends seamlessly into background */}
             <div className="w-full flex items-center justify-center pt-2 lg:pt-6">
-              <img 
-                src="/side%20image.png" 
-                alt="Nifas Silk-Lafto Sub-City Municipal Portal & Citizen Services" 
+              <img
+                src="/side%20image.png"
+                alt="Nifas Silk-Lafto Sub-City Municipal Portal & Citizen Services"
                 className="w-full h-auto max-h-[480px] object-contain select-none pointer-events-none drop-shadow-xs"
                 loading="eager"
                 onError={(e) => {
@@ -207,9 +207,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
         {/* 4 Bottom Metric Highlights Cards with unified hover animation */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 sm:mt-10">
-          
+
           {/* Card 1: Available Services */}
-          <div 
+          <div
             onClick={() => {
               if (onNavigateToSystems) onNavigateToSystems('all');
               scrollToSection('systems-directory');
@@ -224,14 +224,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <span className="text-xs text-gray-500 font-medium block">
                   {language === 'en' ? 'Available Services' : 'ዝግጁ አገልግሎቶች'}
                 </span>
-                <strong className="text-2xl font-bold text-[#0a1e36]">24</strong>
+                <strong className="text-2xl font-bold text-[#0a1e36]">6</strong>
               </div>
             </div>
             <Building className="w-5 h-5 text-gray-300 group-hover:text-[#0348AB] group-hover:scale-110 transition-all" />
           </div>
 
           {/* Card 2: Connect & Track Applications */}
-          <div 
+          <div
             onClick={() => scrollToSection('government-portals-section')}
             className="bg-white p-5 rounded-2xl border border-gray-200/80 hover:border-[#0348AB]/40 hover:-translate-y-1.5 shadow-xs hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out cursor-pointer group flex items-center justify-between min-h-[90px]"
           >
@@ -252,7 +252,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
 
           {/* Card 3: Woreda Offices */}
-          <div 
+          <div
             onClick={() => scrollToSection('woredas-section')}
             className="bg-white p-5 rounded-2xl border border-gray-200/80 hover:border-[#0348AB]/40 hover:-translate-y-1.5 shadow-xs hover:shadow-md active:scale-[0.98] transition-all duration-200 ease-out cursor-pointer group flex items-center justify-between min-h-[90px]"
           >
@@ -264,14 +264,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <span className="text-xs text-gray-500 font-medium block">
                   {language === 'en' ? 'Woreda Offices' : 'የወረዳ ቢሮዎች'}
                 </span>
-                <strong className="text-2xl font-bold text-[#0a1e36]">15</strong>
+                <strong className="text-2xl font-bold text-[#0a1e36]">13</strong>
               </div>
             </div>
             <MapPin className="w-5 h-5 text-gray-300 group-hover:text-[#0348AB] group-hover:scale-110 transition-all" />
           </div>
 
           {/* Card 4: Daily Citizen Transactions */}
-          <div 
+          {/* <div
             onClick={() => {
               if (onNavigateToAnalytics) onNavigateToAnalytics();
               scrollToSection('analytics-section');
@@ -290,7 +290,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
             </div>
             <Users className="w-5 h-5 text-gray-300 group-hover:text-[#0348AB] group-hover:scale-110 transition-all" />
-          </div>
+          </div> */}
 
         </div>
 

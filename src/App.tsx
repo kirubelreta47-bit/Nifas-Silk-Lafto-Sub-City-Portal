@@ -85,11 +85,11 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       const targetId = tab === 'portals' ? 'government-portals-section'
-        : tab === 'systems' ? 'systems-directory' 
-        : tab === 'analytics' ? 'analytics-section'
-        : tab === 'woredas' ? 'woredas-section'
-        : tab === 'landmarks' ? 'landmarks-section'
-        : 'about-section';
+        : tab === 'systems' ? 'systems-directory'
+          : tab === 'analytics' ? 'analytics-section'
+            : tab === 'woredas' ? 'woredas-section'
+              : tab === 'landmarks' ? 'landmarks-section'
+                : 'about-section';
       setTimeout(() => {
         const el = document.getElementById(targetId);
         if (el) {
@@ -115,7 +115,7 @@ export default function App() {
   return (
     <AuctionsProvider>
       <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#FBF9F4] text-[#0f172a] font-sans antialiased selection:bg-[#0d2d4c]/10 selection:text-[#0d2d4c]">
-        
+
         {/* Public chrome stays off the staff desk so the admin tools are not mixed with citizen nav. */}
         {!isAdminRoute && (
           <Navbar
@@ -131,12 +131,12 @@ export default function App() {
         {isAdminRoute ? (
           <main className="w-full max-w-full overflow-x-hidden">
             {!isAdminAuthenticated ? (
-              <AdminLogin 
+              <AdminLogin
                 onLoginSuccess={handleAdminLoginSuccess}
                 onNavigate={navigate}
               />
             ) : (
-              <AdminAuctionsDashboard 
+              <AdminAuctionsDashboard
                 onNavigate={navigate}
                 onLogout={handleAdminLogout}
               />
@@ -158,7 +158,7 @@ export default function App() {
             {/* Collected Cards Single-Page Directory */}
             <div className="space-y-0">
               {/* Official Federal & Municipal Government Gateways (6 Portals) */}
-              <GovernmentPortalsPage 
+              <GovernmentPortalsPage
                 onBackToOverview={() => handleTabChange('overview')}
               />
 
@@ -168,7 +168,7 @@ export default function App() {
                 onOpenSystemModal={(id) => setSelectedSystemModalId(id)}
               />
 
-              <SystemAnalytics />
+              {/* <SystemAnalytics /> */}
 
               <AboutSubCity />
 
