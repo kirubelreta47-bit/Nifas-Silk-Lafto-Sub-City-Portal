@@ -7,6 +7,12 @@ const ADMIN_SESSION_KEY = 'nsl_admin_session_auth';
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 60 * 1000; // 1 minute lockout
 
+export function verifyAdminCredentials(username: string, password: string): boolean {
+  const expectedUser = import.meta.env.VITE_ADMIN_USERNAME || 'admin';
+  const expectedPass = import.meta.env.VITE_ADMIN_PASSWORD || 'admin123';
+  return username === expectedUser && password === expectedPass;
+}
+
 /**
  * Sanitize text input to prevent XSS and strip potentially malicious HTML/scripts.
  */

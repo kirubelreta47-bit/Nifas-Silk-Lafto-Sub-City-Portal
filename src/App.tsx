@@ -116,14 +116,16 @@ export default function App() {
     <AuctionsProvider>
       <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#FBF9F4] text-[#0f172a] font-sans antialiased selection:bg-[#0d2d4c]/10 selection:text-[#0d2d4c]">
         
-        {/* Top Navbar */}
-        <Navbar
-          activeTab={activeTab}
-          setActiveTab={handleTabChange}
-          onOpenSystemModal={(id) => setSelectedSystemModalId(id)}
-          currentPath={currentPath}
-          onNavigate={navigate}
-        />
+        {/* Public chrome stays off the staff desk so the admin tools are not mixed with citizen nav. */}
+        {!isAdminRoute && (
+          <Navbar
+            activeTab={activeTab}
+            setActiveTab={handleTabChange}
+            onOpenSystemModal={(id) => setSelectedSystemModalId(id)}
+            currentPath={currentPath}
+            onNavigate={navigate}
+          />
+        )}
 
         {/* View Switcher based on currentPath */}
         {isAdminRoute ? (
@@ -183,11 +185,12 @@ export default function App() {
           onClose={() => setSelectedSystemModalId(null)}
         />
 
-        {/* Global Footer */}
-        <Footer 
-          setActiveTab={handleTabChange} 
-          onNavigate={navigate}
-        />
+        {!isAdminRoute && (
+          <Footer
+            setActiveTab={handleTabChange}
+            onNavigate={navigate}
+          />
+        )}
 
       </div>
     </AuctionsProvider>

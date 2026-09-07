@@ -1,10 +1,28 @@
 import { AuctionItem, AuctionStatus } from '../types';
 
-// Helper to format ISO date strings relative to today
+/** Format a Date as a local `datetime-local` input value (not UTC). */
+export function toDatetimeLocalValue(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+/** Convert a stored ISO timestamp into a local `datetime-local` value. */
+export function isoToDatetimeLocal(iso?: string | null): string {
+  if (!iso) return toDatetimeLocalValue(new Date());
+  const parsed = new Date(iso);
+  if (Number.isNaN(parsed.getTime())) return iso.slice(0, 16);
+  return toDatetimeLocalValue(parsed);
+}
+
+export function isPersistedAuctionId(id: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+}
+
+// Helper to format ISO date strings relative to today (local clock)
 const now = new Date();
-const addHours = (hours: number) => new Date(now.getTime() + hours * 60 * 60 * 1000).toISOString().slice(0, 16);
-const addDays = (days: number) => new Date(now.getTime() + days * 24 * 60 * 60 * 1000).toISOString().slice(0, 16);
-const subDays = (days: number) => new Date(now.getTime() - days * 24 * 60 * 60 * 1000).toISOString().slice(0, 16);
+const addHours = (hours: number) => toDatetimeLocalValue(new Date(now.getTime() + hours * 60 * 60 * 1000));
+const addDays = (days: number) => toDatetimeLocalValue(new Date(now.getTime() + days * 24 * 60 * 60 * 1000));
+const subDays = (days: number) => toDatetimeLocalValue(new Date(now.getTime() - days * 24 * 60 * 60 * 1000));
 
 export const DEFAULT_CATEGORIES = [
   'Art',
@@ -84,7 +102,7 @@ export const INITIAL_MOCK_AUCTIONS: AuctionItem[] = [
     startingPrice: 950000,
     startDate: addDays(2), // Starts in 2 days (Upcoming)
     endDate: addDays(9),
-    createdAt: now.toISOString().slice(0, 16)
+    createdAt: toDatetimeLocalValue(now)
   }
 ];
 

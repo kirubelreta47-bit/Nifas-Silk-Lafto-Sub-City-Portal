@@ -10,8 +10,6 @@ import {
   ArrowLeft,
   X,
   Settings,
-  Calendar,
-  Building2,
   Info
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -154,6 +152,16 @@ export const LiveAuctionsPage: React.FC<LiveAuctionsPageProps> = ({ onNavigate }
               </div>
             </div>
           </div>
+
+          <button
+            type="button"
+            onClick={() => onNavigate('/admin')}
+            className="inline-flex items-center gap-2 self-start sm:self-center px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-[#14274E] border border-[#D8D3C7] hover:border-[#14274E] cursor-pointer"
+            title={language === 'en' ? 'Staff auction desk' : 'የጨረታ አስተዳደር'}
+          >
+            <Settings className="w-4 h-4 text-[#0348AB]" />
+            <span>{language === 'en' ? 'Staff desk' : 'የሰራተኛ መስኮት'}</span>
+          </button>
         </div>
 
 

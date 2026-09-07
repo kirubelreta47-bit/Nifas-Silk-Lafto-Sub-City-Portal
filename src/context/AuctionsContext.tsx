@@ -1,16 +1,23 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { AuctionItem, SupabaseAuctionRow } from '../types';
-import { INITIAL_MOCK_AUCTIONS, DEFAULT_CATEGORIES } from '../data/auctionsData';
+import { INITIAL_MOCK_AUCTIONS, DEFAULT_CATEGORIES, isoToDatetimeLocal, isPersistedAuctionId } from '../data/auctionsData';
 import { supabase } from '../lib/supabaseClient';
 import { sanitizeText, isSafeUrl } from '../utils/security';
+
+export type AuctionWriteResult = {
+  item: AuctionItem;
+  persisted: boolean;
+};
 
 interface AuctionsContextType {
   auctions: AuctionItem[];
   categories: string[];
   isLoading: boolean;
   error: string | null;
+  isUsingDemoData: boolean;
   fetchAuctions: () => Promise<void>;
-  addAuction: (item: Omit<AuctionItem, 'id' | 'createdAt'>) => Promise<AuctionItem | null>;
+  addAuction: (item: Omit<AuctionItem, 'id' | 'createdAt'>) => Promise<AuctionWriteResult>;
+  updateAuction: (id: string, item: Omit<AuctionItem, 'id' | 'createdAt'>) => Promise<AuctionWriteResult>;
   deleteAuction: (id: string) => Promise<void>;
   resetToDefaults: () => Promise<void>;
 }
@@ -39,8 +46,8 @@ export function mapRowToAuctionItem(row: SupabaseAuctionRow): AuctionItem {
     startingPrice: Number(row.starting_price) || 0,
     currentBid: row.current_bid ? Number(row.current_bid) : undefined,
     bidIncrement: row.bid_increment ? Number(row.bid_increment) : 5,
-    startDate: row.start_time ? row.start_time.slice(0, 16) : new Date().toISOString().slice(0, 16),
-    endDate: row.end_time ? row.end_time.slice(0, 16) : new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 16),
+    startDate: isoToDatetimeLocal(row.start_time),
+    endDate: isoToDatetimeLocal(row.end_time),
     imageUrl: row.image_url || undefined,
     externalLink: row.external_link || undefined,
     linkButtonLabel: row.external_link_label || 'View Source',
@@ -53,6 +60,46 @@ export const AuctionsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [auctions, setAuctions] = useState<AuctionItem[]>(INITIAL_MOCK_AUCTIONS);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [isUsingDemoData, setIsUsingDemoData] = useState<boolean>(true);
+
+  const buildPayload = (item: Omit<AuctionItem, 'id' | 'createdAt'>) => {
+    const sanitizedTitle = sanitizeText(item.title);
+    const sanitizedCategory = sanitizeText(item.category);
+    const sanitizedLocation = sanitizeText(item.location || 'Sub-City Central Warehouse');
+    const sanitizedDesc = sanitizeText(item.description || '');
+    const sanitizedLabel = sanitizeText(item.linkButtonLabel || 'View Source');
+
+    const cleanImg = item.imageUrl && isSafeUrl(item.imageUrl) ? item.imageUrl.trim() : null;
+    const cleanExt = item.externalLink && isSafeUrl(item.externalLink) ? item.externalLink.trim() : null;
+
+    const formattedDescription = sanitizedLocation
+      ? `[Location: ${sanitizedLocation}]\n\n${sanitizedDesc}`
+      : sanitizedDesc;
+
+    return {
+      sanitizedTitle,
+      sanitizedCategory,
+      sanitizedLocation,
+      sanitizedDesc,
+      sanitizedLabel,
+      cleanImg,
+      cleanExt,
+      payload: {
+        title: sanitizedTitle,
+        category: sanitizedCategory,
+        description: formattedDescription,
+        starting_price: Number(item.startingPrice),
+        current_bid: Number(item.startingPrice),
+        bid_increment: 5,
+        start_time: new Date(item.startDate).toISOString(),
+        end_time: new Date(item.endDate).toISOString(),
+        image_url: cleanImg,
+        external_link: cleanExt,
+        external_link_label: sanitizedLabel,
+        status: 'active'
+      }
+    };
+  };
 
   // Load Auctions from Supabase
   const fetchAuctions = useCallback(async () => {
@@ -65,18 +112,23 @@ export const AuctionsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         .order('created_at', { ascending: false });
 
       if (fetchErr) {
-        console.warn('Supabase fetch error, using cached/mock items:', fetchErr.message);
+        console.warn('Supabase fetch error, using demo catalog:', fetchErr.message);
         setError(fetchErr.message);
+        setAuctions(INITIAL_MOCK_AUCTIONS);
+        setIsUsingDemoData(true);
       } else if (data && data.length > 0) {
         const mapped = (data as SupabaseAuctionRow[]).map(mapRowToAuctionItem);
         setAuctions(mapped);
+        setIsUsingDemoData(false);
       } else {
-        // Table is empty, keep initial mock auctions
         setAuctions(INITIAL_MOCK_AUCTIONS);
+        setIsUsingDemoData(true);
       }
     } catch (err: any) {
       console.error('Unexpected error fetching auctions:', err);
       setError(err?.message || 'Failed to fetch auctions');
+      setAuctions(INITIAL_MOCK_AUCTIONS);
+      setIsUsingDemoData(true);
     } finally {
       setIsLoading(false);
     }
@@ -97,96 +149,74 @@ export const AuctionsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return Array.from(set);
   }, [auctions]);
 
-  // Add Auction with security sanitization and Supabase persistence
-  const addAuction = async (item: Omit<AuctionItem, 'id' | 'createdAt'>): Promise<AuctionItem | null> => {
-    // 1. Run administrator inputs through security.ts sanitizers
-    const sanitizedTitle = sanitizeText(item.title);
-    const sanitizedCategory = sanitizeText(item.category);
-    const sanitizedLocation = sanitizeText(item.location || 'Sub-City Central Warehouse');
-    const sanitizedDesc = sanitizeText(item.description || '');
-    const sanitizedLabel = sanitizeText(item.linkButtonLabel || 'View Source');
+  const addAuction = async (item: Omit<AuctionItem, 'id' | 'createdAt'>): Promise<AuctionWriteResult> => {
+    const { payload } = buildPayload(item);
+    const { data, error: insertErr } = await supabase
+      .from('auctions')
+      .insert([payload])
+      .select();
 
-    const cleanImg = item.imageUrl && isSafeUrl(item.imageUrl) ? item.imageUrl.trim() : null;
-    const cleanExt = item.externalLink && isSafeUrl(item.externalLink) ? item.externalLink.trim() : null;
-
-    const formattedDescription = sanitizedLocation
-      ? `[Location: ${sanitizedLocation}]\n\n${sanitizedDesc}`
-      : sanitizedDesc;
-
-    const payload = {
-      title: sanitizedTitle,
-      category: sanitizedCategory,
-      description: formattedDescription,
-      starting_price: Number(item.startingPrice),
-      current_bid: Number(item.startingPrice),
-      bid_increment: 5,
-      start_time: new Date(item.startDate).toISOString(),
-      end_time: new Date(item.endDate).toISOString(),
-      image_url: cleanImg,
-      external_link: cleanExt,
-      external_link_label: sanitizedLabel,
-      status: 'active'
-    };
-
-    try {
-      const { data, error: insertErr } = await supabase
-        .from('auctions')
-        .insert([payload])
-        .select();
-
-      if (insertErr) {
-        console.error('Supabase insert error:', insertErr);
-        throw new Error(insertErr.message);
-      }
-
-      if (data && data[0]) {
-        const newItem = mapRowToAuctionItem(data[0] as SupabaseAuctionRow);
-        setAuctions((prev) => [newItem, ...prev]);
-        return newItem;
-      }
-    } catch (err: any) {
-      console.error('Failed to add auction to Supabase:', err);
-      // Fallback local addition if network fails
-      const fallbackItem: AuctionItem = {
-        id: `auc-${Date.now().toString().slice(-6)}`,
-        title: sanitizedTitle,
-        category: sanitizedCategory,
-        location: sanitizedLocation,
-        description: sanitizedDesc,
-        startingPrice: Number(item.startingPrice),
-        currentBid: Number(item.startingPrice),
-        bidIncrement: 5,
-        startDate: item.startDate,
-        endDate: item.endDate,
-        imageUrl: cleanImg || undefined,
-        externalLink: cleanExt || undefined,
-        linkButtonLabel: sanitizedLabel,
-        status: 'active',
-        createdAt: new Date().toISOString().slice(0, 16)
-      };
-      setAuctions((prev) => [fallbackItem, ...prev]);
-      return fallbackItem;
+    if (insertErr) {
+      throw new Error(insertErr.message);
     }
 
-    return null;
+    if (!data?.[0]) {
+      throw new Error('The listing was not saved. No record was returned from the database.');
+    }
+
+    const newItem = mapRowToAuctionItem(data[0] as SupabaseAuctionRow);
+    setAuctions((prev) => {
+      const demoOnly = prev.length === 0 || prev.every((auction) => !isPersistedAuctionId(auction.id));
+      return demoOnly ? [newItem] : [newItem, ...prev];
+    });
+    setIsUsingDemoData(false);
+    setError(null);
+    return { item: newItem, persisted: true };
   };
 
-  // Delete Auction from Supabase and local state
+  const updateAuction = async (id: string, item: Omit<AuctionItem, 'id' | 'createdAt'>): Promise<AuctionWriteResult> => {
+    const built = buildPayload(item);
+
+    if (!isPersistedAuctionId(id)) {
+      throw new Error('Sample catalog items cannot be edited in the database. Publish a new listing instead.');
+    }
+
+    const { data, error: updateErr } = await supabase
+      .from('auctions')
+      .update(built.payload)
+      .eq('id', id)
+      .select();
+
+    if (updateErr) {
+      throw new Error(updateErr.message);
+    }
+
+    if (!data?.[0]) {
+      throw new Error('The listing could not be updated.');
+    }
+
+    const updated = mapRowToAuctionItem(data[0] as SupabaseAuctionRow);
+    setAuctions((prev) => prev.map((auction) => (auction.id === id ? updated : auction)));
+    setError(null);
+    return { item: updated, persisted: true };
+  };
+
   const deleteAuction = async (id: string): Promise<void> => {
-    // Optimistically update local state
+    const previous = auctions;
     setAuctions((prev) => prev.filter((a) => a.id !== id));
 
-    try {
-      const { error: delErr } = await supabase
-        .from('auctions')
-        .delete()
-        .eq('id', id);
+    if (!isPersistedAuctionId(id)) {
+      return;
+    }
 
-      if (delErr) {
-        console.error('Supabase delete error:', delErr);
-      }
-    } catch (err) {
-      console.error('Unexpected error deleting auction from Supabase:', err);
+    const { error: delErr } = await supabase
+      .from('auctions')
+      .delete()
+      .eq('id', id);
+
+    if (delErr) {
+      setAuctions(previous);
+      throw new Error(delErr.message);
     }
   };
 
@@ -201,8 +231,10 @@ export const AuctionsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         categories,
         isLoading,
         error,
+        isUsingDemoData,
         fetchAuctions,
         addAuction,
+        updateAuction,
         deleteAuction,
         resetToDefaults
       }}

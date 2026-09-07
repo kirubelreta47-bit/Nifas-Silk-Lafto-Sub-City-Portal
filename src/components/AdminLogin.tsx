@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Lock, 
-  ShieldCheck, 
-  KeyRound, 
-  User, 
-  ArrowLeft, 
-  AlertCircle, 
-  Eye, 
-  EyeOff, 
-  Building2,
-  ShieldAlert
+import {
+  Lock,
+  ShieldCheck,
+  KeyRound,
+  User,
+  ArrowLeft,
+  AlertCircle,
+  Eye,
+  EyeOff,
+  ShieldAlert,
+  Globe
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  setAdminAuthenticatedSession, 
-  checkLoginRateLimit, 
-  recordFailedLogin, 
+import {
+  setAdminAuthenticatedSession,
+  checkLoginRateLimit,
+  recordFailedLogin,
   resetLoginAttempts,
-  sanitizeText
+  sanitizeText,
+  verifyAdminCredentials
 } from '../utils/security';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -27,7 +28,7 @@ interface AdminLoginProps {
 }
 
 export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onNavigate }) => {
-  const { language } = useLanguage();
+  const { language, toggleLanguage } = useLanguage();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +37,6 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onNaviga
   const [lockoutSec, setLockoutSec] = useState<number>(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Check rate limiting on mount & interval
   useEffect(() => {
     const checkStatus = () => {
       const { isLocked, remainingSec } = checkLoginRateLimit();
@@ -56,10 +56,13 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onNaviga
     e.preventDefault();
     setErrorMessage(null);
 
-    // Rate-limit check
     const { isLocked, remainingSec } = checkLoginRateLimit();
     if (isLocked) {
-      setErrorMessage(`Too many failed attempts. Security lock active for ${remainingSec}s.`);
+      setErrorMessage(
+        language === 'en'
+          ? `Too many failed attempts. Try again in ${remainingSec}s.`
+          : `በተደጋጋሚ ስህተት ምክንያት ተቆልፏል። ከ ${remainingSec} ሰከንድ በኋላ ይሞክሩ።`
+      );
       return;
     }
 
@@ -67,28 +70,36 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onNaviga
     const cleanPass = password.trim();
 
     if (!cleanUser || !cleanPass) {
-      setErrorMessage('Username and password are required.');
+      setErrorMessage(
+        language === 'en' ? 'Username and password are required.' : 'የተጠቃሚ ስም እና የይለፍ ቃል ያስፈልጋል።'
+      );
       return;
     }
 
     setIsSubmitting(true);
 
-    // Timing-delay simulation for anti-timing analysis attack
     setTimeout(() => {
       setIsSubmitting(false);
 
-      // Verify credentials: username 'admin', password 'admin123'
-      if (cleanUser === 'admin' && cleanPass === 'admin123') {
+      if (verifyAdminCredentials(cleanUser, cleanPass)) {
         resetLoginAttempts();
         setAdminAuthenticatedSession();
         onLoginSuccess();
       } else {
-        const { isLocked, remainingSec } = recordFailedLogin();
-        if (isLocked) {
-          setLockoutSec(remainingSec);
-          setErrorMessage(`Access Denied. Account locked due to 5 consecutive failed attempts. Try again in ${remainingSec}s.`);
+        const { isLocked: nowLocked, remainingSec: retrySec } = recordFailedLogin();
+        if (nowLocked) {
+          setLockoutSec(retrySec);
+          setErrorMessage(
+            language === 'en'
+              ? `Access denied. Account locked after 5 failed attempts. Try again in ${retrySec}s.`
+              : `መግቢያ ተከልክሏል። ከ 5 ሙከራ በኋላ ተቆልፏል። ከ ${retrySec} ሰከንድ በኋላ ይሞክሩ።`
+          );
         } else {
-          setErrorMessage('Invalid administrator credentials. Access has been logged.');
+          setErrorMessage(
+            language === 'en'
+              ? 'Invalid staff credentials.'
+              : 'የተሳሳተ የአስተዳዳሪ መረጃ።'
+          );
         }
       }
     }, 400);
@@ -96,9 +107,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onNaviga
 
   return (
     <div className="min-h-screen bg-[#FBF9F4] text-[#0f172a] flex flex-col justify-center items-center py-12 px-4 sm:px-6">
-      
-      {/* Back button */}
-      <div className="w-full max-w-md mb-6">
+      <div className="w-full max-w-md mb-6 flex items-center justify-between">
         <button
           onClick={() => onNavigate('/')}
           className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-500 hover:text-[#0348AB] transition-colors cursor-pointer"
@@ -106,47 +115,54 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onNaviga
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>{language === 'en' ? 'Back to Public Portal' : 'ወደ ዋናው ፖርታል ተመለስ'}</span>
         </button>
+        <button
+          type="button"
+          onClick={toggleLanguage}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-gray-200 bg-white text-xs font-semibold text-[#0a1e36] cursor-pointer"
+        >
+          <Globe className="w-3.5 h-3.5 text-[#0348AB]" />
+          <span>{language === 'en' ? 'አማርኛ' : 'English'}</span>
+        </button>
       </div>
 
-      {/* Main Login Card */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-white rounded-3xl border border-[#E5E0D5] p-6 sm:p-8 shadow-xl relative overflow-hidden"
+        className="w-full max-w-md bg-white rounded-3xl border border-[#E5E0D5] p-6 sm:p-8 relative overflow-hidden"
       >
-        {/* Security watermark bar */}
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#14274E]" />
 
-        {/* Card Header */}
         <div className="text-center space-y-2 mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-[#14274E] text-white flex items-center justify-center mx-auto shadow-md">
+          <div className="w-12 h-12 rounded-2xl bg-[#14274E] text-white flex items-center justify-center mx-auto">
             <Lock className="w-6 h-6" />
           </div>
           <div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#14274E] tracking-tight">
-              {language === 'en' ? 'Administrative Gateway' : 'የአስተዳዳሪ መግቢያ'}
+              {language === 'en' ? 'Staff Auction Desk' : 'የጨረታ አስተዳደር መግቢያ'}
             </h2>
             <p className="text-xs text-[#6B6558] mt-1">
-              {language === 'en' 
-                ? 'Nifas Silk-Lafto Sub-City Restricted Access' 
-                : 'የነፋስ ስልክ ላፍቶ ክፍለ ከተማ የተጠበቀ መስኮት'}
+              {language === 'en'
+                ? 'Nifas Silk-Lafto Sub-City — authorized personnel only'
+                : 'ንፋስ ስልክ ላፍቶ ክፍለ ከተማ — ለተፈቀደላቸው ባለሥልጣናት ብቻ'}
             </p>
           </div>
           <div className="inline-flex items-center gap-1.5 bg-blue-50 border border-blue-200 text-[#0348AB] px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
             <ShieldCheck className="w-3 h-3" />
-            <span>Secure TLS Session Protected</span>
+            <span>{language === 'en' ? 'Restricted staff session' : 'የተጠበቀ የሰራተኛ መግቢያ'}</span>
           </div>
         </div>
 
-        {/* Lockout alert */}
         {lockoutSec > 0 && (
           <div className="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs font-semibold flex items-center gap-2">
             <ShieldAlert className="w-4 h-4 text-rose-600 shrink-0" />
-            <span>Security Lockout active. Retry in {lockoutSec}s.</span>
+            <span>
+              {language === 'en'
+                ? `Security lockout active. Retry in ${lockoutSec}s.`
+                : `መቆለፊያ ንቁ ነው። ከ ${lockoutSec} ሰከንድ በኋላ ይሞክሩ።`}
+            </span>
           </div>
         )}
 
-        {/* Error message */}
         <AnimatePresence>
           {errorMessage && (
             <motion.div
@@ -161,13 +177,10 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onNaviga
           )}
         </AnimatePresence>
 
-        {/* Form */}
         <form onSubmit={handleLogin} className="space-y-4">
-          
-          {/* Username */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
-              {language === 'en' ? 'Administrator Name' : 'የአስተዳዳሪ ስም'}
+              {language === 'en' ? 'Staff username' : 'የአስተዳዳሪ ስም'}
             </label>
             <div className="relative">
               <User className="w-4 h-4 text-gray-400 absolute left-3.5 top-3" />
@@ -177,17 +190,16 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onNaviga
                 autoComplete="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter username"
+                placeholder={language === 'en' ? 'Enter username' : 'የተጠቃሚ ስም ያስገቡ'}
                 disabled={lockoutSec > 0}
                 className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-[#0348AB] focus:ring-2 focus:ring-[#0348AB]/10 text-sm font-medium transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
               />
             </div>
           </div>
 
-          {/* Password */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
-              {language === 'en' ? 'Passcode / Password' : 'የይለፍ ቃል'}
+              {language === 'en' ? 'Password' : 'የይለፍ ቃል'}
             </label>
             <div className="relative">
               <KeyRound className="w-4 h-4 text-gray-400 absolute left-3.5 top-3" />
@@ -212,33 +224,30 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onNaviga
             </div>
           </div>
 
-          {/* Submit Action */}
           <div className="pt-2">
             <button
               type="submit"
               disabled={lockoutSec > 0 || isSubmitting}
-              className="w-full py-3 px-4 rounded-xl bg-[#14274E] hover:bg-[#0a1e36] text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed"
+              className="w-full py-3 px-4 rounded-xl bg-[#14274E] hover:bg-[#0a1e36] text-white font-bold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
               <Lock className="w-4 h-4" />
               <span>
-                {isSubmitting 
-                  ? (language === 'en' ? 'Verifying Access...' : 'በማረጋገጥ ላይ...') 
-                  : (language === 'en' ? 'Authenticate & Enter' : 'አረጋግጥና ግባ')}
+                {isSubmitting
+                  ? (language === 'en' ? 'Verifying…' : 'በማረጋገጥ ላይ...')
+                  : (language === 'en' ? 'Sign in' : 'ግባ')}
               </span>
             </button>
           </div>
-
         </form>
 
-        {/* Security Warning Notice */}
         <div className="mt-6 pt-4 border-t border-gray-100 text-center">
           <p className="text-[11px] text-gray-400 leading-relaxed">
-            Authorized municipal personnel only. All access attempts and administrative modifications are monitored and logged.
+            {language === 'en'
+              ? 'Municipal staff only. Failed attempts are rate-limited in this browser.'
+              : 'ለማዘጋጃ ቤት ሰራተኞች ብቻ። ያልተሳኩ ሙከራዎች በዚህ አሳሽ ይገደባሉ።'}
           </p>
         </div>
-
       </motion.div>
-
     </div>
   );
 };
