@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 name: Build and deploy
+=======
+name: 🚀 Deploy Vite App
+>>>>>>> 80ee66a7faf9a971d0d74b3bd4bd1a01c8bacb90
 
 on:
   push:
     branches:
       - main
+<<<<<<< HEAD
   workflow_dispatch:
 
 permissions:
@@ -26,10 +31,25 @@ jobs:
         with:
           node-version: 20
           cache: npm
+=======
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20          # Better to use 20 or 22 instead of 18
+          cache: 'npm'
+>>>>>>> 80ee66a7faf9a971d0d74b3bd4bd1a01c8bacb90
 
       - name: Install dependencies
         run: npm ci
 
+<<<<<<< HEAD
       - name: Build site
         run: npm run build
 
@@ -43,3 +63,16 @@ jobs:
           local-dir: ./dist/
           protocol: ftp
           security: loose
+=======
+      - name: Build Vite project
+        run: npm run build
+        
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.laftoonline.com
+          username: home@laftoonline.com
+          password: ${{ secrets.Secret_password }}
+          local-dir: dist/
+          server-dir: /
+>>>>>>> 80ee66a7faf9a971d0d74b3bd4bd1a01c8bacb90

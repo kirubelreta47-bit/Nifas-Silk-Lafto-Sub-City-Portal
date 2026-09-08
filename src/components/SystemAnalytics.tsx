@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { 
-  PieChart, 
-  Pie, 
-  Cell, 
-  ResponsiveContainer, 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  Tooltip, 
-  AreaChart, 
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  AreaChart,
   Area,
   Legend
 } from 'recharts';
-import { 
-  Activity, 
-  CheckCircle2, 
-  Clock, 
+import {
+  Activity,
+  CheckCircle2,
+  Clock,
   Building2,
   Users,
   Radio,
@@ -46,7 +46,7 @@ export const SystemAnalytics: React.FC = () => {
     { name: language === 'en' ? 'Admin' : 'አስተዳደር', total: 4, production: 2, dev: 1, testing: 1 },
   ];
 
-  // Hourly transaction volume simulation (24 hours)
+  // Hourly transaction volume simulation (6 hours)
   const trafficData = [
     { hour: '08:00', requests: 1850 },
     { hour: '10:00', requests: 3420 },
@@ -69,20 +69,20 @@ export const SystemAnalytics: React.FC = () => {
   return (
     <section id="analytics-section" className="py-12 bg-[#F7F5F0] text-[#6B6558] border-t border-[#E5E0D5] relative">
       <div className="w-full max-w-[1600px] mx-auto px-3.5 sm:px-6 lg:px-8 xl:px-10 relative z-10">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 pb-4 border-b border-[#E5E0D5]">
           <div>
             <div className="flex items-center gap-2 text-[#14274E] text-xs font-bold uppercase tracking-wider mb-1">
               <Activity className="w-4 h-4 text-[#14274E]" />
-              <span>{language === 'en' ? 'Public Service Analytics • 24 Portals' : 'የአገልግሎቶች ሁኔታ እና መረጃ'}</span>
+              <span>{language === 'en' ? 'Public Service Analytics • 6 Portals' : 'የአገልግሎቶች ሁኔታ እና መረጃ'}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#14274E] tracking-tight">
               {language === 'en' ? 'Service Status & Municipal Activity' : 'የአገልግሎት ዝግጁነት እና እንቅስቃሴ'}
             </h2>
             <p className="text-sm text-[#6B6558] mt-1">
-              {language === 'en' 
-                ? 'Overview of digital municipal readiness, citizen utilization, and service performance across all 15 Woredas.' 
+              {language === 'en'
+                ? 'Overview of digital municipal readiness, citizen utilization, and service performance across all 15 Woredas.'
                 : 'በሁሉም 15 ወረዳዎች የሚሰጡ የህዝብ አገልግሎቶች ዝግጁነት እና የዜጎች ተጠቃሚነት ሁኔታ::'}
             </p>
           </div>
@@ -90,31 +90,28 @@ export const SystemAnalytics: React.FC = () => {
           <div className="flex flex-wrap items-center bg-white p-1 rounded-xl border border-[#D8D3C7] self-start md:self-auto gap-1">
             <button
               onClick={() => setActiveTab('distribution')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'distribution'
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'distribution'
                   ? 'bg-[#0348AB] text-white shadow-xs'
                   : 'text-[#6B6558] hover:text-[#0348AB]'
-              }`}
+                }`}
             >
               {language === 'en' ? 'Readiness Status' : 'የዝግጁነት ሁኔታ'}
             </button>
             <button
               onClick={() => setActiveTab('departments')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'departments'
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'departments'
                   ? 'bg-[#0348AB] text-white shadow-xs'
                   : 'text-[#6B6558] hover:text-[#0348AB]'
-              }`}
+                }`}
             >
               {language === 'en' ? 'By Sector' : 'በዘርፍ'}
             </button>
             <button
               onClick={() => setActiveTab('traffic')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'traffic'
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'traffic'
                   ? 'bg-[#0348AB] text-white shadow-xs'
                   : 'text-[#6B6558] hover:text-[#0348AB]'
-              }`}
+                }`}
             >
               {language === 'en' ? 'Daily Volume' : 'ዕለታዊ እንቅስቃሴ'}
             </button>
@@ -123,9 +120,9 @@ export const SystemAnalytics: React.FC = () => {
 
         {/* Top 3 Quick Summary Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
-          
+
           {/* Card 1: Production (14) */}
-          <motion.div 
+          <motion.div
             whileHover={{ y: -3 }}
             className="bg-white border border-[#E5E0D5] rounded-2xl p-5 relative overflow-hidden"
           >
@@ -143,14 +140,14 @@ export const SystemAnalytics: React.FC = () => {
               <span className="text-xs text-[#8A8578] font-medium">{language === 'en' ? 'out of 24' : 'ከ 24'}</span>
             </div>
             <p className="text-xs text-[#6B6558] mt-2">
-              {language === 'en' 
-                ? 'Fully accessible 24/7 across all 15 Woredas including ID verification, Land Title, and Tax payment.' 
+              {language === 'en'
+                ? 'Fully accessible 24/7 across all 15 Woredas including ID verification, Land Title, and Tax payment.'
                 : 'በሁሉም 15 ወረዳዎች ያለማቋረጥ አገልግሎት እየሰጡ ያሉ (የነዋሪ መታወቂያ፣ የመሬት ካርታ እና ግብር)::'}
             </p>
           </motion.div>
 
           {/* Card 2: Development / In Preparation (7) */}
-          <motion.div 
+          <motion.div
             whileHover={{ y: -3 }}
             className="bg-white border border-[#E5E0D5] rounded-2xl p-5 relative overflow-hidden"
           >
@@ -164,18 +161,18 @@ export const SystemAnalytics: React.FC = () => {
               </span>
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-extrabold text-[#14274E]">7 {language === 'en' ? 'Services' : 'አገልግሎቶች'}</span>
+              <span className="text-3xl font-extrabold text-[#14274E]">6 {language === 'en' ? 'Services' : 'አገልግሎቶች'}</span>
               <span className="text-xs text-[#8A8578] font-medium">{language === 'en' ? 'out of 24' : 'ከ 24'}</span>
             </div>
             <p className="text-xs text-[#6B6558] mt-2">
-              {language === 'en' 
-                ? 'Under final development: Smart Traffic, Waste Collection Dispatch, 3D GIS mapping, and Streetlight automation.' 
+              {language === 'en'
+                ? 'Under final development: Smart Traffic, Waste Collection Dispatch, 3D GIS mapping, and Streetlight automation.'
                 : 'የመጨረሻ ዝግጅት ላይ ያሉ (ዘመናዊ የትራፊክ መረጃ፣ የቆሻሻ አሰባሰብ እና የጎዳና መብራቶች)::'}
             </p>
           </motion.div>
 
           {/* Card 3: Pilot Testing (3) */}
-          <motion.div 
+          <motion.div
             whileHover={{ y: -3 }}
             className="bg-white border border-[#E5E0D5] rounded-2xl p-5 relative overflow-hidden"
           >
@@ -193,8 +190,8 @@ export const SystemAnalytics: React.FC = () => {
               <span className="text-xs text-[#8A8578] font-medium">{language === 'en' ? 'out of 24' : 'ከ 24'}</span>
             </div>
             <p className="text-xs text-[#6B6558] mt-2">
-              {language === 'en' 
-                ? 'Field-testing in selected Woredas: Citizen Touch Kiosks, Fleet GPS monitoring, and Maternal Health Tracker.' 
+              {language === 'en'
+                ? 'Field-testing in selected Woredas: Citizen Touch Kiosks, Fleet GPS monitoring, and Maternal Health Tracker.'
                 : 'በተመረጡ ወረዳዎች የሙከራ ትግበራ ላይ ያሉ (የዜጎች የኪዮስክ መረጃ፣ የተሽከርካሪ ክትትል እና የጤና አገልግሎት)::'}
             </p>
           </motion.div>
@@ -203,10 +200,10 @@ export const SystemAnalytics: React.FC = () => {
 
         {/* Graphical Section Container */}
         <div className="grid lg:grid-cols-12 gap-8 items-start">
-          
+
           {/* Main Chart Column */}
           <div className="lg:col-span-7 bg-white border border-[#E5E0D5] rounded-2xl p-6">
-            
+
             {activeTab === 'distribution' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -215,11 +212,11 @@ export const SystemAnalytics: React.FC = () => {
                       {language === 'en' ? 'Service Readiness Ratio' : 'የአገልግሎቶች ዝግጁነት ምጥጥን'}
                     </h3>
                     <p className="text-xs text-[#8A8578]">
-                      {language === 'en' ? 'Breakdown of 24 sub-city digital municipal services' : 'የ24ቱ የክፍለ ከተማ አገልግሎቶች ወቅታዊ ሁኔታ'}
+                      {language === 'en' ? 'Breakdown of 6 sub-city digital municipal services' : 'የ24ቱ የክፍለ ከተማ አገልግሎቶች ወቅታዊ ሁኔታ'}
                     </p>
                   </div>
                   <span className="text-xs font-bold text-[#14274E] bg-[#F7F5F0] px-2.5 py-1 rounded-lg border border-[#E5E0D5]">
-                    {language === 'en' ? 'Total: 24 Services' : 'ጠቅላላ: 24 አገልግሎቶች'}
+                    {language === 'en' ? 'Total: 6 Services' : 'ጠቅላላ: 6 አገልግሎቶች'}
                   </span>
                 </div>
 
@@ -239,7 +236,7 @@ export const SystemAnalytics: React.FC = () => {
                           <Cell key={`cell-${index}`} fill={entry.color} stroke="#ffffff" strokeWidth={2} />
                         ))}
                       </Pie>
-                      <Tooltip 
+                      <Tooltip
                         contentStyle={{ backgroundColor: '#ffffff', borderColor: '#E5E0D5', borderRadius: '12px', color: '#14274E', fontSize: '12px' }}
                       />
                       <Legend verticalAlign="bottom" height={36} />
@@ -282,7 +279,7 @@ export const SystemAnalytics: React.FC = () => {
                     <BarChart data={departmentData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                       <XAxis dataKey="name" stroke="#8A8578" tick={{ fontSize: 11 }} />
                       <YAxis stroke="#8A8578" tick={{ fontSize: 11 }} />
-                      <Tooltip 
+                      <Tooltip
                         contentStyle={{ backgroundColor: '#ffffff', borderColor: '#E5E0D5', borderRadius: '12px', color: '#14274E', fontSize: '12px' }}
                       />
                       <Legend />
@@ -313,7 +310,7 @@ export const SystemAnalytics: React.FC = () => {
                     <AreaChart data={trafficData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                       <XAxis dataKey="hour" stroke="#8A8578" tick={{ fontSize: 11 }} />
                       <YAxis stroke="#8A8578" tick={{ fontSize: 11 }} />
-                      <Tooltip 
+                      <Tooltip
                         contentStyle={{ backgroundColor: '#ffffff', borderColor: '#E5E0D5', borderRadius: '12px', color: '#14274E', fontSize: '12px' }}
                       />
                       <Area type="monotone" dataKey="requests" name={language === 'en' ? 'Citizen Inquiries' : 'የተጠቃሚ ጥያቄዎች'} stroke="#14274E" fill="#E5E0D5" strokeWidth={2} />
@@ -327,7 +324,7 @@ export const SystemAnalytics: React.FC = () => {
 
           {/* Live Activity & Community Feed Sidebar */}
           <div className="lg:col-span-5 space-y-6">
-            
+
             {/* Live Citizen Activity Feed */}
             <div className="bg-white border border-[#E5E0D5] rounded-2xl p-5">
               <div className="flex items-center justify-between pb-3 border-b border-[#E5E0D5]">

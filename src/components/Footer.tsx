@@ -5,9 +5,10 @@ import { useLanguage } from '../context/LanguageContext';
 
 interface FooterProps {
   setActiveTab: (tab: string) => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
+export const Footer: React.FC<FooterProps> = ({ setActiveTab, onNavigate }) => {
   const { language, t } = useLanguage();
 
   return (
@@ -76,8 +77,18 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                   {t('nav.landmarks')}
                 </button>
               </li>
+              <li>
+                <button 
+                  onClick={() => onNavigate ? onNavigate('/auctions') : setActiveTab('auctions')} 
+                  className="hover:text-[#14274E] transition-colors cursor-pointer font-semibold text-[#0348AB]"
+                >
+                  {t('nav.auctions')}
+                </button>
+              </li>
             </ul>
           </div>
+
+
 
           {/* Systems Breakdown */}
           <div className="md:col-span-4 space-y-2">
@@ -111,6 +122,12 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
           </p>
 
           <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => onNavigate ? onNavigate('/admin') : undefined}
+              className="text-xs font-medium text-[#8A8578] hover:text-[#14274E] px-3.5 py-1.5 bg-white border border-[#D8D3C7] rounded-lg hover:bg-[#F7F5F0] transition-colors cursor-pointer"
+            >
+              {language === 'en' ? 'Staff desk' : 'የሰራተኛ መስኮት'}
+            </button>
             <button 
               onClick={() => setActiveTab('systems')}
               className="text-xs font-bold text-[#14274E] hover:text-black px-3.5 py-1.5 bg-white border border-[#D8D3C7] rounded-lg hover:bg-[#F7F5F0] transition-colors cursor-pointer"
