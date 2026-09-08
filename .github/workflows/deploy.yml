@@ -1,41 +1,33 @@
-name: Build and deploy
+name: 🚀 Deploy Vite App
 
 on:
   push:
     branches:
       - main
-
-concurrency:
-  group: production-deployment
-  cancel-in-progress: true
-
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 20          # Better to use 20 or 22 instead of 18
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build site
+      - name: Build Vite project
         run: npm run build
-
-      - name: Deploy dist over FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.7.5
+        
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.laftoonline.com
           username: home@laftoonline.com
           password: ${{ secrets.Secret_password }}
+          local-dir: dist/
           server-dir: /
-          local-dir: ./dist/
-          protocol: ftp
-          security: loose
